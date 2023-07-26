@@ -1,7 +1,7 @@
 <!--
-* @Component: 
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Component:
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts"></script>
 

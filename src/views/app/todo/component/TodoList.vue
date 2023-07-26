@@ -1,7 +1,7 @@
 <!--
-* @Component: 
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Component:
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts">
 import { useTodoStore } from "../todoStore";
@@ -51,14 +51,11 @@ const filterdTodoList = computed(() => {
       <transition-group name="fade">
         <div v-for="todo in filterdTodoList" :key="todo.id">
           <div class="todo-item d-flex align-center pa-5">
-            <div>
-              <v-checkbox-btn
-                v-model="todo.completed"
-                color="primary"
-                class="pe-2"
-              ></v-checkbox-btn>
-            </div>
-
+            <v-checkbox-btn
+              v-model="todo.completed"
+              color="primary"
+              class="pe-2"
+            ></v-checkbox-btn>
             <v-avatar size="40">
               <v-img
                 src="https://avatars.githubusercontent.com/u/35951244?v=4"

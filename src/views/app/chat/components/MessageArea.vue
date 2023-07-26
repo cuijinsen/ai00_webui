@@ -1,7 +1,7 @@
 <!--
-* @Component: 
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Component:
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts">
 import Message from "./Message.vue";
@@ -15,9 +15,11 @@ const chatStore = useChatStore();
       v-for="message in chatStore.chatHistory"
       :key="message.id"
       :message="message"
-      class="my-4 d-flex"
+      class="my-12 d-flex "
     />
   </transition-group>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+</style>

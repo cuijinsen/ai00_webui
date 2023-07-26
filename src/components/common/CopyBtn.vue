@@ -1,6 +1,6 @@
 <!--
 * @Component: CopyLabel
-* @Maintainer: J.K. Yang
+* @Maintainer: AI00
 * @Description:
 -->
 <script setup lang="ts">

@@ -1,7 +1,7 @@
 <!--
 * @Component: ToolbarNotifications
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts">
 const messages = [

@@ -4,7 +4,7 @@ import currency from "./currencies";
 export default {
   // product display information
   product: {
-    name: "Lux Vuetify3",
+    name: "AI00",
     version: "1.0.0",
   },
 

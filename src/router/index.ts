@@ -1,14 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import UserRoutes from "./user.routes";
-import AuthRoutes from "./auth.routes";
-import UIRoutes from "./ui.routes";
-import LandingRoutes from "./landing.routes";
-import UtilityRoutes from "./utility.routes";
-import PagesRoutes from "./pages.routes";
-import ChartsRoutes from "./charts.routes";
+
 import AppsRoutes from "./apps.routes";
-import DataRoutes from "./data.routes";
-import AiRoutes from "./ai.routes";
+
 
 export const routes = [
   {
@@ -30,16 +23,8 @@ export const routes = [
     component: () =>
       import(/* webpackChunkName: "error" */ "@/views/errors/NotFoundPage.vue"),
   },
-  ...UserRoutes,
-  ...LandingRoutes,
-  ...AuthRoutes,
-  ...PagesRoutes,
-  ...UtilityRoutes,
-  ...UIRoutes,
-  ...ChartsRoutes,
+
   ...AppsRoutes,
-  ...DataRoutes,
-  ...AiRoutes,
 ];
 
 // 动态路由，基于用户权限动态去加载

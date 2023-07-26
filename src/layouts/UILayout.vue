@@ -3,7 +3,6 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import MainSidevar from "@/components/navigation/MainSidebar.vue";
 import MainAppbar from "@/components/toolbar/MainAppbar.vue";
-import ToolBox from "@/components/Toolbox.vue";
 import { useCustomizeThemeStore } from "@/stores/customizeTheme";
 const customizeTheme = useCustomizeThemeStore();
 
@@ -31,15 +30,9 @@ const customizeTheme = useCustomizeThemeStore();
   >
     <!-- <GlobalLoading /> -->
 
-    <div class="d-none d-sm-block px-3">
-      <PageTitle></PageTitle>
-      <Breadcrumb></Breadcrumb>
-    </div>
-
-    <div class="flex-fill">
+    <div class="">
       <slot></slot>
     </div>
-    <ToolBox />
   </v-main>
 </template>
 
@@ -49,7 +42,7 @@ const customizeTheme = useCustomizeThemeStore();
 }
 
 .main-container {
-  height: 100%;
+  height: calc(100vh - 326px);
   display: flex;
   flex-direction: column;
 }

@@ -1,7 +1,7 @@
 <!--
 * @Component: ToolbarNotifications
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts">
 import StatusMenu from "./StatusMenu.vue";
@@ -91,12 +91,12 @@ const navs = [
           </template>
 
           <v-list-item-title class="font-weight-bold text-primary">
-            YANG J.K.
+            User
             <StatusMenu />
           </v-list-item-title>
           <v-list-item-subtitle>
             <!-- {{ $store.state.user.email  }} -->
-            yjkbako@gmail.com
+            xxxxx@gmail.com
           </v-list-item-subtitle>
         </v-list-item>
       </v-list>

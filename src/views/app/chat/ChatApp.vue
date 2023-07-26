@@ -1,57 +1,85 @@
 <!--
-* @Component: 
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Component:
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts">
-import ChatMenu from "./components/ChatMenu.vue";
+
+  import ChatMenu from "./components/ChatMenu.vue";
+  import { useChatStore } from "./chatStore";
+  const chatStore = useChatStore();
+
+//  chatStore.setserverip(window.location.host)
+chatStore.setserverip("127.0.0.1:3000")
+
+const issettings = ref(true);
+
+issettings.value = chatStore.getSettings()
 </script>
 
 <template>
-  <div class="app-container">
+
+
+  <v-card class="app-container pa-xl-8 pa-lg-8 pa-md-0 pa-sm-0">
+
     <!-- ---------------------------------------------- -->
     <!-- Side Bar -->
     <!-- ---------------------------------------------- -->
-    <div class="d-none d-md-block sidebar">
-      <ChatMenu />
-    </div>
+    <v-navigation-drawer border="none" v-model="chatStore.Sidebar" class="pa-2">
+      <div style="padding-top: 32px;padding-left: 5px;">
+        <ChatMenu />
+      </div>
+    </v-navigation-drawer>
 
     <!-- ---------------------------------------------- -->
     <!--  List Todo-->
     <!-- ---------------------------------------------- -->
-    <div class="main">
+    <v-card class="main">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
         </transition>
       </router-view>
-    </div>
-  </div>
+    </v-card>
+    <v-card class="rr"  v-if="chatStore.settings && chatStore.Sidebar">
+
+    </v-card>
+
+  </v-card>
 </template>
 
 <style scoped lang="scss">
-.app-container {
-  display: flex;
-  height: calc(100vh - 240px);
-  width: 100%;
-
-  font-size: 13px;
-  padding: 20px;
-
-  .sidebar {
+  .app-container {
     display: flex;
-    flex-direction: column;
-    width: 300px;
     height: 100%;
-    background-color: #fff;
-    margin-right: 20px;
+    width: 100%;
+
+    font-size: 14px;
+
+    .main {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+
+    }
+    .rr {
+      flex-basis: 300px;
+      margin-left: 20px;
+      width: 100%;
+      height: 100%;
+      z-index: 1008;
+
+    }
   }
 
-  .main {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
+  .app-pa1 {
+
+    padding: 0px;
+
   }
-}
+  .app-pa2 {
+
+    padding: 20px;
+
+  }
 </style>

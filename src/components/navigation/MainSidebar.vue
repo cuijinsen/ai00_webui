@@ -1,7 +1,7 @@
 <!--
-* @Component: 
-* @Maintainer: J.K. Yang
-* @Description: 
+* @Component:
+* @Maintainer: AI00
+* @Description:
 -->
 <script setup lang="ts">
 import configs from "@/configs";
@@ -12,7 +12,7 @@ const customizeTheme = useCustomizeThemeStore();
 const navigation = ref(configs.navigation);
 
 const openGithubSite = () => {
-  window.open("https://github.com/yangjiakai", "_blank");
+  window.open("https://github.com/cgisky1980/ai00_rwkv_server", "_blank");
 };
 
 onMounted(() => {
@@ -96,12 +96,12 @@ const scrollToBottom = () => {
             >
               <Icon width="30" icon="line-md:github-loop" />
             </v-btn>
-            Yang J.K.
+           AI00 Server
           </v-card-title>
           <v-card-subtitle> </v-card-subtitle>
           <v-card-text>
             <div><b>Github:</b></div>
-            <div>github.com/yangjiakai</div>
+            <div style="font-size:smaller">cgisky1980/ai00_rwkv_server</div>
           </v-card-text>
           <v-card-actions>
             <v-btn

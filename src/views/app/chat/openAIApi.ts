@@ -1,53 +1,27 @@
-import { Configuration, OpenAIApi } from "openai";
+import type { ChatMessage } from "./chatTypes";
 
-export const createCompletion: any = (keyword: string, apiKey: string) => {
-  const configuration = new Configuration({
-    apiKey: apiKey,
-  });
+export async function chat(messageList: ChatMessage[], apiKey: string, serverip: string, serverport: string) {
 
-  const openai = new OpenAIApi(configuration);
+    const result = await fetch("http://"+serverip+"/v1/chat/completions", {
+      method: "post",
+      // signal: AbortSignal.timeout(8000),
+      // 开启后到达设定时间会中断流式输出
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        stream: true,
+        messages: messageList,
+        stop: ["\n\n","\nUser:","User:"],
+        max_tokens: 1000,
+        temperature: 1,
+        top_p: 0.2,
+        presence_penalty: 0.1,
+        frequency_penalty: 0.1,
+      }),
+    });
+    return result;
 
-  return openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: keyword }],
-  });
-};
-
-export const translationApi: any = (
-  content: string,
-  prompt: string,
-  apiKey: string
-) => {
-  const configuration = new Configuration({
-    apiKey: apiKey,
-  });
-
-  const openai = new OpenAIApi(configuration);
-
-  return openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "user", content: prompt },
-      { role: "user", content: content },
-    ],
-  });
-};
-
-// openai.listModels
-// https://platform.openai.com/docs/api-reference/models/list
-
-// openai.retrieveModel
-// GET https://api.openai.com/v1/models/{model}
-
-function generatePrompt(animal: string) {
-  const capitalizedAnimal =
-    animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-  return `Suggest three names for an animal that is a superhero.
-  
-  Animal: Cat
-  Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-  Animal: Dog
-  Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-  Animal: ${capitalizedAnimal}
-  Names:`;
 }
