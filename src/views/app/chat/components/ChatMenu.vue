@@ -25,11 +25,6 @@ const ChatStore = useChatStore()
 const index = ref(0)
 const idname = ref('')
 
-const bot = ref({
-  id: 2,
-  name: 'AI',
-  avatar: '/tou/9.png',
-})
 
 const newchat = () => {
   if(ChatStore.getChatting()){
@@ -40,6 +35,13 @@ const newchat = () => {
     id_name: idnames,
     title: '新的聊天',
   }
+
+  const tounum = Math.round(Math.random()*15);
+  const bot = ref({
+  id: 2,
+  name: 'AI',
+  avatar: '/tou/'+tounum+'.png',
+  })
 
   ChatList.addToChatList(newchatl)
 

@@ -6,7 +6,8 @@
       default: () => ({}),
     },
   });
-
+  import { useChatStore } from '../chatStore'
+  const ChatStore = useChatStore()
 
 </script>
 
@@ -25,7 +26,7 @@
         </v-row>
     </template>
 
-    <v-avatar image="/tou/9.png" class="aitou" size="100"></v-avatar>
+    <v-avatar :image="ChatStore.chatHistory[0].user.avatar" class="aitou" size="100"></v-avatar>
   </v-card>
   <v-avatar image="/tou/8.png" class="mytou"  size="100"  ></v-avatar>
 </template>

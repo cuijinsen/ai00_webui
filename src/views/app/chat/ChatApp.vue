@@ -8,8 +8,8 @@ import ChatMenu from "./components/ChatMenu.vue";
 import { useChatStore } from "./chatStore";
 const chatStore = useChatStore();
 
-//  chatStore.setserverip(window.location.host)
-chatStore.setserverip("127.0.0.1:65530");
+  chatStore.setserverip(window.location.host)
+//chatStore.setserverip("127.0.0.1:65530");
 
 const issettings = ref(true);
 
