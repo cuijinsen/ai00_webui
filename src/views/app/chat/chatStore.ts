@@ -13,6 +13,12 @@ export const useChatStore = defineStore({
     isChatting:false,
     settings:true,
     serverip:"127.0.0.1",
+    Max_Tokens:1000,
+    TOP_P:0.5,
+    Temperature:1,
+    Presence:0.3,
+    Frequency:0.2,
+
   }),
 
   persist: {

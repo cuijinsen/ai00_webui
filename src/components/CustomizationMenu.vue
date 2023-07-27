@@ -143,29 +143,7 @@ const updatePrimaryColor = (newColor: Color) => {
             </v-item>
           </v-item-group>
         </div>
-        <hr class="my-6" />
-        <div class="">
-          <b>MiniSideBar</b>
-          <v-switch
-            color="primary"
-            class="ml-2"
-            hide-details
-            :label="`Mini: ${customizeTheme.miniSidebar}`"
-          ></v-switch>
-        </div>
-        <hr class="mb-6" />
-        <div>
-          <v-btn color="" class="gradient info" block size="large"
-            >Contact Me</v-btn
-          >
-        </div>
-        <div class="ml-5 mt-5 d-flex align-center">
-          <v-icon color="primary" class="mr-6">mdi-email-outline</v-icon>
-          <a href="mailto:yjkbako@gmail.com">yjkbako@gmail.com</a>
-        </div>
-        <div>
-          <img src="@/assets/wechat.jpg" alt="" />
-        </div>
+
       </div>
     </v-navigation-drawer>
   </div>

@@ -44,6 +44,7 @@ export default {
   },
   chat: {
     newchat: "New Chat",
+    settings: "Settings"
 
   },
 

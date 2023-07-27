@@ -119,16 +119,6 @@ const sendChatMessage = async (content: string = userMessage.value) => {
 
       contlist.push({
         role:'user',
-        content:'我们所处的位置是哪里？'
-      })
-
-      contlist.push({
-        role:'assistant',
-        content:'我们在中国上海！'
-      })
-
-      contlist.push({
-        role:'user',
         content:'你是谁？'
       })
 
@@ -142,7 +132,7 @@ const sendChatMessage = async (content: string = userMessage.value) => {
 
     }
 
-    const { body, status } = await chat(contlist, "",chatStore.getserverip(),chatStore.getserverport());
+    const { body, status } = await chat(contlist, "",chatStore.getserverip(),chatStore.Max_Tokens,chatStore.Temperature,chatStore.TOP_P,chatStore.Presence,chatStore.Frequency);
     if (body) {
       const reader = body.getReader();
       await readStream(reader, status);
@@ -162,6 +152,8 @@ const readStream = async (
 ) => {
   let partialLine = "";
   let contentss = ""
+  let contentscache = ""
+  let temp = 0
   while (true) {
     // eslint-disable-next-line no-await-in-loop
     const { value, done } = await reader.read();
@@ -193,8 +185,32 @@ const readStream = async (
           ? json.choices[0].delta.content ?? ""
           : json.error.message;
       console.log(content)
-      contentss +=  content
+
+      if(((content=="\n"))&&(temp==0)){
+        temp = 1
+      }
+
+      if((temp==0)&&((content=="User")||(content=="Q")||(content=="Assistant"))){
+        temp = 5
+      }
+
+      if((temp==1)&&((content=="User")||(content=="Q")||(content=="Assistant"))){
+        temp = 2
+      }else if(temp==1){
+        temp = 0
+      }
+
+      if(((temp==2)||(temp==5))&&((content==":"))){
+        return
+      }else if(temp==2){
+        temp = 0
+      }
+
+      contentscache += content
+      if(temp==0){
+      contentss =  contentscache
       chatStore.changeLatestMessage(contentss)
+      }
 
     }
 

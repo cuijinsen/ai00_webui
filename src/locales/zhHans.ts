@@ -43,6 +43,7 @@ export default {
   },
   chat: {
     newchat: "新建聊天",
+    settings: "参数设置",
 
   },
 

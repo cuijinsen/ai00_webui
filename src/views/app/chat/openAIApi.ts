@@ -1,6 +1,6 @@
 import type { ChatMessage } from "./chatTypes";
 
-export async function chat(messageList: ChatMessage[], apiKey: string, serverip: string, serverport: string) {
+export async function chat(messageList: ChatMessage[], apiKey: string, serverip: string, max_tokens: number,temperature:number,top_p:number,presence_penalty:number,frequency_penalty:number) {
 
     const result = await fetch("http://"+serverip+"/v1/chat/completions", {
       method: "post",
@@ -15,11 +15,11 @@ export async function chat(messageList: ChatMessage[], apiKey: string, serverip:
         stream: true,
         messages: messageList,
         stop: ["\n\n","\nUser:","User:"],
-        max_tokens: 1000,
-        temperature: 1,
-        top_p: 0.2,
-        presence_penalty: 0.1,
-        frequency_penalty: 0.1,
+        max_tokens: max_tokens,
+        temperature: temperature,
+        top_p: top_p,
+        presence_penalty: presence_penalty,
+        frequency_penalty: frequency_penalty,
       }),
     });
     return result;
