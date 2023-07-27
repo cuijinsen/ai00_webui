@@ -8,12 +8,34 @@ import ChatMenu from "./components/ChatMenu.vue";
 import { useChatStore } from "./chatStore";
 const chatStore = useChatStore();
 
-  chatStore.setserverip(window.location.host)
-//chatStore.setserverip("127.0.0.1:65530");
+//  chatStore.setserverip(window.location.host)
+chatStore.setserverip("127.0.0.1:65530");
 
 const issettings = ref(true);
 
 issettings.value = chatStore.getSettings();
+
+
+  const model = ref("")
+
+  async function getModles() {
+  const result = await fetch('http://127.0.0.1:65530/models', {
+      method: 'get',
+      // signal: AbortSignal.timeout(8000),
+      // 开启后到达设定时间会中断流式输出
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer 1`,
+      },
+
+    })
+
+    const modelss = await result.json();
+    model.value = modelss.data[0].id
+    chatStore.Model = model.value
+  }
+
+  getModles()
 </script>
 
 <template>
@@ -48,7 +70,7 @@ issettings.value = chatStore.getSettings();
 
       <template v-slot:text>
 
-        <v-card-text> Max_Tokens </v-card-text>
+        <v-card-text> Max Tokens </v-card-text>
         <v-slider
           v-model="chatStore.Max_Tokens"
           color="primary"
@@ -58,7 +80,7 @@ issettings.value = chatStore.getSettings();
           thumb-label="always"
         ></v-slider>
 
-        <v-card-text> TOP_P </v-card-text>
+        <v-card-text> Top P </v-card-text>
         <v-slider
           v-model="chatStore.TOP_P"
           color="primary"
@@ -78,7 +100,7 @@ issettings.value = chatStore.getSettings();
           thumb-label="always"
         ></v-slider>
 
-        <v-card-text> Presence </v-card-text>
+        <v-card-text> Presence Penalty </v-card-text>
         <v-slider
           v-model="chatStore.Presence"
           color="primary"
@@ -88,7 +110,7 @@ issettings.value = chatStore.getSettings();
           thumb-label="always"
         ></v-slider>
 
-        <v-card-text> Frequency </v-card-text>
+        <v-card-text> Frequency Penalty </v-card-text>
         <v-slider
           v-model="chatStore.Frequency"
           color="primary"

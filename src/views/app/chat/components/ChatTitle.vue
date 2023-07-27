@@ -19,14 +19,14 @@
               chat mode
           </v-col>
           <v-col cols="12" sm="9">
-              <p>Model: RWKV-World-7B-CHNtuned</p>
-              <p>Top_p: 0.7</p>
+              <p>Model: {{ ChatStore.Model }}</p>
+
           </v-col>
 
         </v-row>
     </template>
 
-    <v-avatar :image="ChatStore.chatHistory[0].user.avatar" class="aitou" size="100"></v-avatar>
+    <v-avatar :image="ChatStore.AIimg" class="aitou" size="100"></v-avatar>
   </v-card>
   <v-avatar image="/tou/8.png" class="mytou"  size="100"  ></v-avatar>
 </template>
@@ -51,7 +51,7 @@
 }
 .mytou{
   position:absolute;
-  top: 60px;
+  top: 35px;
   right: 20px;
   background-color: white;
   z-index: 10;

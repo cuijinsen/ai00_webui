@@ -44,6 +44,8 @@ export default {
   chat: {
     newchat: "新建聊天",
     settings: "参数设置",
+    chating: "愉快地聊天吧",
+    hello: "你好，我是你的AI助手。有什么问题或指令请尽管吩咐！",
 
   },
 

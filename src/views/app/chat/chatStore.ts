@@ -12,13 +12,14 @@ export const useChatStore = defineStore({
     nowchat:"",
     isChatting:false,
     settings:true,
-    serverip:"127.0.0.1",
+    serverip:"127.0.0.1:65530",
     Max_Tokens:1000,
     TOP_P:0.5,
     Temperature:1,
     Presence:0.3,
-    Frequency:0.2,
-
+    Frequency:0.3,
+    Model:"",
+    AIimg:""
   }),
 
   persist: {

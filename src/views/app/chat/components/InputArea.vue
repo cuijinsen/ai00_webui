@@ -42,7 +42,7 @@ const user = ref({
 const bot = ref({
   id: 2,
   name: 'AI',
-  avatar: '/tou/9.png',
+  avatar: chatStore.AIimg,
 })
 
 const emits = defineEmits(['scroll'])
@@ -109,7 +109,7 @@ const sendChatMessage = async (content: string = userMessage.value) => {
 
       contlist.push({
         role:'user',
-        content:'现在的时间是' + moment().format('llll')
+        content:'现在的时间是' + moment().format('YYYY MMM Do dddd a')
       })
 
       contlist.push({
@@ -225,7 +225,7 @@ const readStream = async (
     v-model="userMessage"
     rows="3"
     row-height="12"
-    label="愉快的聊天吧"
+    :label="$t('chat.chating')"
     no-resize
     max-rows="3"
     variant="outlined"

@@ -10,11 +10,15 @@ import { useChatStore } from '../chatStore'
 import type { Message, clist } from '../chatTypes'
 import moment from 'moment'
 import 'moment/dist/locale/zh-cn'
+import 'moment/dist/locale/es-us'
 
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 moment.locale('zh-cn')
 
 const getdiff = (timestamp) => {
-  moment.locale('zh-cn')
+  moment.locale('es-us')
   return moment(Number(timestamp)).fromNow()
 }
 
@@ -33,7 +37,7 @@ const newchat = () => {
   const idnames = Date.now().toString()
   const newchatl: clist = {
     id_name: idnames,
-    title: '新的聊天',
+    title: t("chat.newchat"),
   }
 
   const tounum = Math.round(Math.random()*15);
@@ -49,11 +53,12 @@ const newchat = () => {
 
   ChatStore.setnowchat(idnames)
   idname.value = idnames
+  ChatStore.AIimg = '/tou/'+tounum+'.png'
 
   const hello: Message = {
     id: '_' + Math.random().toString(36).substring(2, 11),
     user: bot.value,
-    text: '你好，我是你的AI助手。有什么问题或指令请尽管吩咐！',
+    text: t("chat.hello"),
     timestamp: new Date().getTime(),
   }
   ChatStore.startHistory(hello)
@@ -70,6 +75,8 @@ const change = (i: number) => {
   const nowHistoy = ChatList.getChatid(i).history
 
   ChatStore.setHistory(nowHistoy)
+if(ChatStore.chatHistory){ChatStore.AIimg = ChatStore.chatHistory[0].user.avatar}
+
 
 }
 

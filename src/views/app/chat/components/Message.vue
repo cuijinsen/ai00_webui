@@ -5,7 +5,8 @@
 -->
 <script setup lang="ts">
 import ChatLabel from "./ChatLabel.vue";
-
+import { useChatStore } from '../chatStore'
+const ChatStore = useChatStore()
 const props = defineProps({
   // Message to display
   message: {
@@ -27,7 +28,7 @@ const isUserMessage = computed(() => {
     <v-avatar size="40" class="elevation-1 grey lighten-3 ma-1 "
       :class="isUserMessage ? 'bg-shades-white' : 'bg-primary'"
       style="z-index:22;top:-20px">
-      <v-img v-if="message.user.avatar" :src="message.user.avatar" />
+      <v-img v-if="message.user.avatar" :src="isUserMessage ? message.user.avatar : ChatStore.chatHistory[0].user.avatar" />
     </v-avatar>
     <v-card
       :class="isUserMessage ? ' w-auto ml-5 mr-n8 ' : ' w-auto mr-5 ml-n8' "
