@@ -1,12 +1,13 @@
 
 <template>
+    <div class="wdlw">
     <div :class="(s题目.length != 0 || s提纲.length != 0) ? 'logo-left' : 'logo-center'"><b
             style="color: purple;">闻达</b><b>论文</b></div>
 
     <v-row class="input-box">
         <v-col cols="10">
-            <v-textarea autofocus v-model="s题目" label="题目" no-resize rows="1" hide-details="auto"
-                @keypress.enter="window.f生成提纲()"></v-textarea>
+            <v-text-field autofocus v-model="s题目" label="题目" hide-details="auto"
+                @keypress.enter="window.f生成提纲"></v-text-field>
         </v-col>
         <v-col cols="2">
             <v-btn color="purple" dark size="x-large" @click="window.f生成提纲()">
@@ -69,18 +70,19 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+</div>
 </template>
 <style>
-div {
+.wdlw div {
     transition: all 0.3s;
 }
 
-.v-card {
+.wdlw .v-card {
     margin: 20px;
     padding: 10px;
 }
 
-.logo-center {
+.wdlw .logo-center {
     left: calc(50% - 140px);
     width: 260px;
     font-size: 4em;
@@ -89,25 +91,25 @@ div {
     position: relative;
 }
 
-.logo-left {
+.wdlw .logo-left {
     left: 20px;
     width: 100%;
     font-size: xx-large;
     position: relative;
 }
 
-.input-box {
+.wdlw .input-box {
     margin: auto;
     width: fit-content;
     min-width: 580px;
 }
 
-pre {
+.wdlw pre {
     margin: 20px;
     white-space: break-spaces;
 }
 
-.v-application--wrap {
+.wdlw .v-application--wrap {
     display: unset;
 }
 </style>
@@ -186,7 +188,7 @@ window.f生成正文 = async (e) => {
         if (num <= 0 || num == 100) {
             let paragraph = {
                 title: resp[i],
-                content: '',
+                content: '正在撰写',
                 prompt: "根据主题：" + app.s题目 + "\n对下列段落进行详细的撰写：" + line[1]
             }
             app.results.push(paragraph)
@@ -264,7 +266,7 @@ window.copy = (s) => {
 };
 
 window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
-    const res = await fetch(location.origin.replace("4399", '3000') + "/v1/chat/completions", {
+    const res = await fetch(location.origin.replace("4399", '65530') + "/v1/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
