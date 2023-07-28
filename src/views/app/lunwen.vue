@@ -10,36 +10,36 @@
                     @keypress.enter="window.f生成提纲"></v-text-field>
             </v-col>
             <v-col cols="2">
-                <v-btn color="purple" dark size="x-large" @click="window.f生成提纲()">
+                <v-btn color="primary"  size="x-large" @click="window.f生成提纲()">
                     生成提纲
                 </v-btn>
             </v-col>
         </v-row>
 
-        <v-card elevation="2" v-if="s提纲" :loading="b提纲加载中" title="提纲">
+        <v-card elevation="2" v-if="s提纲" :loading="b提纲加载中?'primary':false" title="提纲">
             <!-- <v-card-title>提纲</v-card-title> -->
             <v-divider></v-divider>
             <v-card-text>
                 <v-textarea autofocus v-model="s提纲" label="提纲" rows="15" hide-details="auto"></v-textarea>
             </v-card-text>
             <v-card-actions>
-                <v-btn color="purple" dark size="x-large" @click="window.f生成正文()">
+                <v-btn color="primary"  size="x-large" @click="window.f生成正文()">
                     生成正文
                 </v-btn>
-                <v-btn color="purple" dark size="x-large" @click="window.f复制正文()" v-if="results.length">
+                <v-btn color="primary"  size="x-large" @click="window.f复制正文()" v-if="results.length">
                     复制正文
                 </v-btn>
             </v-card-actions>
         </v-card>
-        <v-card elevation="2" v-for="result in results" :loading="result.loading">
+        <v-card elevation="2" v-for="result in results" :loading="result.loading?'primary':false">
             <v-card-title>{{ result.title }} <v-spacer></v-spacer>
-                <v-icon @click="window.copy(result.content)" v-if="result.prompt">
+                <v-icon @click="window.copy(result.content)" v-if="result.prompt" color="primary">
                     mdi-content-copy
                 </v-icon>
-                <v-icon @click="window.f重新生成(result)" v-if="result.prompt">
+                <v-icon @click="window.f重新生成(result)" v-if="result.prompt" color="primary">
                     mdi-refresh
                 </v-icon>
-                <v-icon @click="window.f知识库重新生成(result)" v-if="result.prompt">
+                <v-icon @click="window.f知识库重新生成(result)" v-if="result.prompt" color="primary">
                     mdi-book-open-variant
                 </v-icon>
             </v-card-title>
@@ -60,11 +60,11 @@
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn color="blue darken-1" text
+                    <v-btn color="primary" text
                         @click="show_dialog = false; dialog_input = ''; window.dialog_input_resolver()">
                         取消
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="show_dialog = false; window.dialog_input_resolver()">
+                    <v-btn color="primary" text @click="show_dialog = false; window.dialog_input_resolver()">
                         确认
                     </v-btn>
                 </v-card-actions>
@@ -115,13 +115,16 @@
 </style>
 <script>
 export default {
+    theme: {
+        defaultTheme: 'dark'
+    },
     data() {
         window.lw_app = this
         return {
             s题目: "",
             s提纲: "",
             s提示文本: "",
-            b提纲加载中:false,
+            b提纲加载中: false,
             b显示提示文本: false,
             results: [],
             // 是否显示snackbar
@@ -142,10 +145,10 @@ export default {
 }
 window.f生成提纲 = async (e) => {
     e && e.preventDefault()
-    lw_app.b提纲加载中=true
+    lw_app.b提纲加载中 = true
     let prompt = '根据以下主题，写一篇高度凝练且全面的论文提纲：' + lw_app.s题目
     await send_raw(prompt, '', [], (s) => { lw_app.s提纲 = s })
-    lw_app.b提纲加载中=false
+    lw_app.b提纲加载中 = false
 }
 window.f生成正文 = async (e) => {
 
@@ -192,7 +195,7 @@ window.f生成正文 = async (e) => {
             let paragraph = {
                 title: resp[i],
                 content: '正在撰写',
-                loading:true,
+                loading: true,
                 prompt: "根据主题：" + lw_app.s题目 + "\n对下列段落进行详细的撰写：" + line[1]
             }
             lw_app.results.push(paragraph)
