@@ -5,33 +5,33 @@
                 style="color: purple;">闻达</b><b>论文</b></div>
 
         <v-row class="input-box">
-            <v-col cols="10">
+            <v-col cols="10" elevation="2">
                 <v-text-field autofocus v-model="s题目" label="题目" hide-details="auto"
                     @keypress.enter="window.f生成提纲"></v-text-field>
             </v-col>
             <v-col cols="2">
-                <v-btn color="primary"  size="x-large" @click="window.f生成提纲()">
+                <v-btn elevation="2" color="primary" size="x-large" @click="window.f生成提纲()">
                     生成提纲
                 </v-btn>
             </v-col>
         </v-row>
 
-        <v-card elevation="2" v-if="s提纲" :loading="b提纲加载中?'primary':false" title="提纲">
+        <v-card elevation="2" v-if="s提纲" :loading="b提纲加载中 ? 'primary' : false" title="提纲">
             <!-- <v-card-title>提纲</v-card-title> -->
             <v-divider></v-divider>
             <v-card-text>
                 <v-textarea autofocus v-model="s提纲" label="提纲" rows="15" hide-details="auto"></v-textarea>
             </v-card-text>
             <v-card-actions>
-                <v-btn color="primary"  size="x-large" @click="window.f生成正文()">
+                <v-btn color="primary" size="x-large" @click="window.f生成正文()">
                     生成正文
                 </v-btn>
-                <v-btn color="primary"  size="x-large" @click="window.f复制正文()" v-if="results.length">
+                <v-btn color="primary" size="x-large" @click="window.f复制正文()" v-if="results.length">
                     复制正文
                 </v-btn>
             </v-card-actions>
         </v-card>
-        <v-card elevation="2" v-for="result in results" :loading="result.loading?'primary':false">
+        <v-card elevation="2" v-for="result in results" :loading="result.loading ? 'primary' : false">
             <v-card-title>{{ result.title }} <v-spacer></v-spacer>
                 <v-icon @click="window.copy(result.content)" v-if="result.prompt" color="primary">
                     mdi-content-copy
@@ -45,7 +45,7 @@
             </v-card-title>
 
             <v-divider v-if="result.prompt"></v-divider>
-            <pre v-text="result.content"></pre>
+            <v-textarea v-if="result.prompt" v-model="result.content" rows="5" hide-details></v-textarea>
         </v-card>
         <v-snackbar v-model="b显示提示文本" :timeout="3000" style="white-space: pre-line">{{ s提示文本 }}</v-snackbar>
         <v-dialog v-model="show_dialog" persistent max-width="600px">
@@ -73,6 +73,14 @@
     </div>
 </template>
 <style>
+.wdlw {
+    background-color: #eff7ff;
+    min-height: 100vh;
+}
+.wdlw .elevation-2 {
+    box-shadow: 0px 3px 10px -2px rgb(0 0 0 / 20%), 0px 2px 20px 0px rgb(0 0 0 / 20%), 0px 1px 30px 0px rgb(0 0 0 / 20%) !important;
+}
+
 .wdlw div {
     transition: all 0.3s;
 }
