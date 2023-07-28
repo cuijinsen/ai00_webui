@@ -36,6 +36,7 @@ export default {
   menu: {
     dashboard: "Home",
     chat: "Chat",
+    lunwen: "LunWen",
 
   },
 

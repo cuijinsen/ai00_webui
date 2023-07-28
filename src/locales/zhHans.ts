@@ -36,6 +36,7 @@ export default {
   menu: {
     dashboard: "主页",
     chat: "聊天室",
+    lunwen: "论文",
 
   },
   dashboard: {

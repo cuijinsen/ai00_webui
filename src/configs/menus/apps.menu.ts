@@ -6,6 +6,12 @@ export default [
     text: "Chat",
     link: "/apps/chat",
   },
+  {
+    icon: "mdi-file-document-edit",
+    key: "menu.lunwen",
+    text: "Lunwen",
+    link: "/apps/lunwen",
+  },
 
   // {
   //   icon: "mdi-bookmark-plus",
