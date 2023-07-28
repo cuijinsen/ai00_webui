@@ -21,14 +21,14 @@
         <v-card-text>
             <v-textarea autofocus v-model="s提纲" label="提纲" rows="15" hide-details="auto"></v-textarea>
         </v-card-text>
-        <v-card-action>
+        <v-card-actions>
             <v-btn color="purple" dark size="x-large" @click="window.f生成正文()">
                 生成正文
             </v-btn>
             <v-btn color="purple" dark size="x-large" @click="window.f复制正文()" v-if="results.length">
                 复制正文
             </v-btn>
-        </v-card-action>
+        </v-card-actions>
     </v-card>
     <v-card elevation="2" v-for="result in results">
         <v-card-title>{{ result.title }} <v-spacer></v-spacer>
@@ -294,7 +294,7 @@ window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
                     let content = payload.choices[0].delta.content;
                     if (content) {
                         result += content
-                        onmessage(result)
+                        onmessage(result.trim())
                     }
                 }
 
@@ -303,7 +303,7 @@ window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
         });
     }
     await readChunk()
-    return result
+    return result.trim()
 }
 
 </script>
