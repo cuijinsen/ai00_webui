@@ -18,7 +18,7 @@ const { t } = useI18n()
 moment.locale('zh-cn')
 
 const getdiff = (timestamp) => {
-  moment.locale('es-us')
+  moment.locale('zh-cn')
   return moment(Number(timestamp)).fromNow()
 }
 

@@ -71,14 +71,7 @@
     </v-dialog>
 </template>
 <style>
-div {
-    transition: all 0.3s;
-}
 
-.v-card {
-    margin: 20px;
-    padding: 10px;
-}
 
 .logo-center {
     left: calc(50% - 140px);
@@ -264,15 +257,17 @@ window.copy = (s) => {
 };
 
 window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
-    const res = await fetch(location.origin.replace("4399", '3000') + "/v1/chat/completions", {
+    const res = await fetch("http://"+ window.location.host + "/v1/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             messages: QA_history.concat([{ role: "user", content: prompt }]),
             stream: true,
-            temperature: app.temperature,
-            top_p: app.top_p,
-            max_tokens: app.max_length,
+            max_tokens: 1000,
+            temperature: 1,
+            top_p: 0.5,
+            presence_penalty: 0.3,
+            frequency_penalty: 0.3,
         }),
         // signal: controller.signal
     });
