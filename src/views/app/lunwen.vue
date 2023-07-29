@@ -1,79 +1,98 @@
 
 <template>
-    <div :class="(s题目.length != 0 || s提纲.length != 0) ? 'logo-left' : 'logo-center'"><b
-            style="color: purple;">闻达</b><b>论文</b></div>
+    <div class="wdlw">
+        <div :class="(s题目.length != 0 || s提纲.length != 0) ? 'logo-left' : 'logo-center'"><b
+                style="color: purple;">闻达</b><b>论文</b></div>
 
-    <v-row class="input-box">
-        <v-col cols="10">
-            <v-textarea autofocus v-model="s题目" label="题目" no-resize rows="1" hide-details="auto"
-                @keypress.enter="window.f生成提纲()"></v-textarea>
-        </v-col>
-        <v-col cols="2">
-            <v-btn color="purple" dark size="x-large" @click="window.f生成提纲()">
-                生成提纲
-            </v-btn>
-        </v-col>
-    </v-row>
+        <v-row class="input-box">
+            <v-col cols="10" elevation="2">
+                <v-text-field autofocus v-model="s题目" label="题目" hide-details="auto"
+                    @keypress.enter="window.f生成提纲"></v-text-field>
+            </v-col>
+            <v-col cols="2">
+                <v-btn elevation="2" color="primary" size="x-large" @click="window.f生成提纲()">
+                    生成提纲
+                </v-btn>
+            </v-col>
+        </v-row>
 
-    <v-card elevation="2" v-if="s提纲">
-        <v-card-title>提纲</v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-            <v-textarea autofocus v-model="s提纲" label="提纲" rows="15" hide-details="auto"></v-textarea>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn color="purple" dark size="x-large" @click="window.f生成正文()">
-                生成正文
-            </v-btn>
-            <v-btn color="purple" dark size="x-large" @click="window.f复制正文()" v-if="results.length">
-                复制正文
-            </v-btn>
-        </v-card-actions>
-    </v-card>
-    <v-card elevation="2" v-for="result in results">
-        <v-card-title>{{ result.title }} <v-spacer></v-spacer>
-            <v-icon @click="window.copy(result.content)" v-if="result.prompt">
-                mdi-content-copy
-            </v-icon>
-            <v-icon @click="window.f重新生成(result)" v-if="result.prompt">
-                mdi-refresh
-            </v-icon>
-            <v-icon @click="window.f知识库重新生成(result)" v-if="result.prompt">
-                mdi-book-open-variant
-            </v-icon>
-        </v-card-title>
-
-        <v-divider v-if="result.prompt"></v-divider>
-        <pre v-text="result.content"></pre>
-    </v-card>
-    <v-snackbar v-model="b显示提示文本" :timeout="3000" style="white-space: pre-line">{{ s提示文本 }}</v-snackbar>
-    <v-dialog v-model="show_dialog" persistent max-width="600px">
-        <v-card class="ma-0 pa0">
-            <v-card-title>
-                <span class="text-h5">{{ dialog_title }}</span>
-            </v-card-title>
+        <v-card elevation="2" v-if="s提纲" :loading="b提纲加载中 ? 'primary' : false" title="提纲">
+            <!-- <v-card-title>提纲</v-card-title> -->
+            <v-divider></v-divider>
             <v-card-text>
-                <v-container>
-                    <v-textarea autofocus v-model="dialog_input" no-resize rows="2" hide-details="auto"
-                        @keypress.enter="show_dialog = false; window.dialog_input_resolver()"></v-textarea>
-                </v-container>
+                <v-textarea autofocus v-model="s提纲" label="提纲" rows="15" hide-details="auto"></v-textarea>
             </v-card-text>
             <v-card-actions>
-                <v-btn color="blue darken-1" text
-                    @click="show_dialog = false; dialog_input = ''; window.dialog_input_resolver()">
-                    取消
+                <v-btn color="primary" size="x-large" @click="window.f生成正文()">
+                    生成正文
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="show_dialog = false; window.dialog_input_resolver()">
-                    确认
+                <v-btn color="primary" size="x-large" @click="window.f复制正文()" v-if="results.length">
+                    复制正文
                 </v-btn>
             </v-card-actions>
         </v-card>
-    </v-dialog>
+        <v-card elevation="2" v-for="result in results" :loading="result.loading ? 'primary' : false">
+            <v-card-title>{{ result.title }} <v-spacer></v-spacer>
+                <v-icon @click="window.copy(result.content)" v-if="result.prompt" color="primary">
+                    mdi-content-copy
+                </v-icon>
+                <v-icon @click="window.f重新生成(result)" v-if="result.prompt" color="primary">
+                    mdi-refresh
+                </v-icon>
+                <v-icon @click="window.f知识库重新生成(result)" v-if="result.prompt" color="primary">
+                    mdi-book-open-variant
+                </v-icon>
+            </v-card-title>
+
+            <v-divider v-if="result.prompt"></v-divider>
+            <v-textarea v-if="result.prompt" v-model="result.content" rows="5" hide-details></v-textarea>
+        </v-card>
+        <v-snackbar v-model="b显示提示文本" :timeout="3000" style="white-space: pre-line">{{ s提示文本 }}</v-snackbar>
+        <v-dialog v-model="show_dialog" persistent max-width="600px">
+            <v-card class="ma-0 pa0">
+                <v-card-title>
+                    <span class="text-h5">{{ dialog_title }}</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-textarea autofocus v-model="dialog_input" no-resize rows="2" hide-details="auto"
+                            @keypress.enter="show_dialog = false; window.dialog_input_resolver()"></v-textarea>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" text
+                        @click="show_dialog = false; dialog_input = ''; window.dialog_input_resolver()">
+                        取消
+                    </v-btn>
+                    <v-btn color="primary" text @click="show_dialog = false; window.dialog_input_resolver()">
+                        确认
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </div>
 </template>
 <style>
 
+.wdlw {
+    background-color: #eff7ff;
+    min-height: 100vh;
+}
+.wdlw .elevation-2 {
+    box-shadow: 0px 3px 10px -2px rgb(0 0 0 / 20%), 0px 2px 20px 0px rgb(0 0 0 / 20%), 0px 1px 30px 0px rgb(0 0 0 / 20%) !important;
+}
 
-.logo-center {
+.wdlw div {
+    transition: all 0.3s;
+}
+
+.wdlw .v-card {
+    margin: 20px;
+    padding: 10px;
+}
+
+
+.wdlw .logo-center {
     left: calc(50% - 140px);
     width: 260px;
     font-size: 4em;
@@ -82,42 +101,46 @@
     position: relative;
 }
 
-.logo-left {
+.wdlw .logo-left {
     left: 20px;
     width: 100%;
     font-size: xx-large;
     position: relative;
 }
 
-.input-box {
+.wdlw .input-box {
     margin: auto;
     width: fit-content;
     min-width: 580px;
 }
 
-pre {
+.wdlw pre {
     margin: 20px;
     white-space: break-spaces;
 }
 
-.v-application--wrap {
+.wdlw .v-application--wrap {
     display: unset;
 }
 </style>
 <script>
 export default {
+    theme: {
+        defaultTheme: 'dark'
+    },
     data() {
-        window.app = this
+        window.lw_app = this
         return {
             s题目: "",
             s提纲: "",
+            s提示文本: "",
+            b提纲加载中: false,
+            b显示提示文本: false,
             results: [],
             // 是否显示snackbar
-            b显示提示文本: false,
             // snackbar的文本
-            s提示文本: "",
-            temperature: 0.8,
-            top_p: 0.2,
+            temperature: 1.3,
+            top_p: 0.5,
             max_length: 2000,
             llm_type: "",
             //显示对话框
@@ -132,8 +155,10 @@ export default {
 }
 window.f生成提纲 = async (e) => {
     e && e.preventDefault()
-    let prompt = '根据以下主题，写一篇高度凝练且全面的论文提纲：' + app.s题目
-    return await send_raw(prompt, '', [], (s) => { app.s提纲 = s })
+    lw_app.b提纲加载中 = true
+    let prompt = '根据以下主题，写一篇高度凝练且全面的论文提纲：' + lw_app.s题目
+    await send_raw(prompt, '', [], (s) => { lw_app.s提纲 = s })
+    lw_app.b提纲加载中 = false
 }
 window.f生成正文 = async (e) => {
 
@@ -165,7 +190,7 @@ window.f生成正文 = async (e) => {
         }
         return number
     }
-    let resp = app.s提纲
+    let resp = lw_app.s提纲
         .replace(/\n- /g, '\n1.')//兼容不同格式
         .split("\n")
     for (let i in resp) {
@@ -179,13 +204,15 @@ window.f生成正文 = async (e) => {
         if (num <= 0 || num == 100) {
             let paragraph = {
                 title: resp[i],
-                content: '',
-                prompt: "根据主题：" + app.s题目 + "\n对下列段落进行详细的撰写：" + line[1]
+                content: '正在撰写',
+                loading: true,
+                prompt: "根据主题：" + lw_app.s题目 + "\n对下列段落进行详细的撰写：" + line[1]
             }
-            app.results.push(paragraph)
+            lw_app.results.push(paragraph)
             await send_raw(paragraph.prompt, '', [], (s) => { paragraph.content = s })
+            paragraph.loading = false
         } else {
-            app.results.push({ title: resp[i], content: "" })   // 保存提纲
+            lw_app.results.push({ title: resp[i], content: "" })   // 保存提纲
         }
     }
 }
@@ -207,11 +234,11 @@ window.f知识库重新生成 = async (paragraph) => {
         kownladge.map((e, i) => i + 1 + "." + e.content).join('\n'), '', [], (s) => { paragraph.content = s })
 }
 window.f复制正文 = async () => {
-    copy(app.results.map(i => i.title + "\n" + i.content).join("\n"))
+    copy(lw_app.results.map(i => i.title + "\n" + i.content).join("\n"))
 }
 window.alert = (text) => {
-    app.s提示文本 = text; //.replace(/\n/g,"<br>")
-    app.b显示提示文本 = true;
+    lw_app.s提示文本 = text; //.replace(/\n/g,"<br>")
+    lw_app.b显示提示文本 = true;
 }
 //编辑prompt
 window.edit = async (current_conversation) => {
@@ -224,14 +251,14 @@ window.edit = async (current_conversation) => {
 }
 //获取用户输入
 window.input = async (title = '请输入', input = '') => {
-    app.dialog_title = title
-    app.dialog_input = input
-    app.show_dialog = true
+    lw_app.dialog_title = title
+    lw_app.dialog_input = input
+    lw_app.show_dialog = true
 
     await new Promise(resolve => {
         window.dialog_input_resolver = resolve
     })
-    return app.dialog_input
+    return lw_app.dialog_input
 }
 window.copy = (s) => {
     navigator.permissions
@@ -258,6 +285,7 @@ window.copy = (s) => {
 
 window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
     const res = await fetch("http://"+ window.location.host + "/v1/chat/completions", {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -268,6 +296,7 @@ window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
             top_p: 0.5,
             presence_penalty: 0.3,
             frequency_penalty: 0.3,
+
         }),
         // signal: controller.signal
     });
