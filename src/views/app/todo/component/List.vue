@@ -4,8 +4,8 @@
 * @Description:
 -->
 <script setup lang="ts">
-import { useTodoStore } from "../todoStore";
-import { Todo } from "../todoTypes";
+import { useTodoStore } from "../Store";
+import { Todo } from "../Types";
 
 const props = defineProps<{
   tasks: Todo[];

@@ -284,7 +284,7 @@ window.copy = (s) => {
 };
 
 window.send_raw = async (prompt, keyword, QA_history, onmessage = alert) => {
-    const res = await fetch("http://"+ window.location.host + "/v1/chat/completions", {
+    const res = await fetch("http://127.0.0.1:3000/v1/chat/completions", {
 
         method: "POST",
         headers: { "Content-Type": "application/json" },

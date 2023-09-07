@@ -4,7 +4,7 @@ export interface ChatMessage {
 }
 export async function chat(messageList: ChatMessage[], apiKey: string) {
  
-    const result = await fetch('http://127.0.0.1:8080/v1/chat/completions', {
+    const result = await fetch('http://127.0.0.1:3000/v1/chat/completions', {
       method: 'post',
       // signal: AbortSignal.timeout(8000),
       // 开启后到达设定时间会中断流式输出

@@ -37,6 +37,7 @@ export default {
     dashboard: "Home",
     chat: "Chat",
     lunwen: "LunWen",
+    todo: "Functional Template Case",
 
   },
 

@@ -4,8 +4,8 @@
 * @Description:
 -->
 <script setup lang="ts">
-import { Todo } from "../todoTypes";
-import { useTodoStore } from "../todoStore";
+import { Todo } from "../Types";
+import { useTodoStore } from "../Store";
 const todoStore = useTodoStore();
 const dialog = ref(false);
 const task = ref<Todo>({

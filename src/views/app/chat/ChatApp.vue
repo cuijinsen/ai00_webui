@@ -9,7 +9,7 @@ import { useChatStore } from "./chatStore";
 const chatStore = useChatStore();
 
 //chatStore.setserverip(window.location.host)
-chatStore.setserverip("127.0.0.1:65530");
+chatStore.setserverip("127.0.0.1:3000");
 
 const issettings = ref(true);
 
@@ -19,7 +19,7 @@ issettings.value = chatStore.getSettings();
   const model = ref("")
 
   async function getModles() {
-  const result = await fetch('http://'+window.location.host+'/models', {
+  const result = await fetch('http://127.0.0.1:3000/models', {
       method: 'get',
       // signal: AbortSignal.timeout(8000),
       // 开启后到达设定时间会中断流式输出

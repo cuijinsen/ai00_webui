@@ -4,8 +4,8 @@
 * @Description:
 -->
 <script setup lang="ts">
-import TodoMenu from "@/views/app/todo/component/TodoMenu.vue";
-import TodoCard from "@/views/app/todo/component/TodoCard.vue";
+import TodoMenu from "@/views/app/todo/component/Menu.vue";
+import TodoCard from "@/views/app/todo/component/Card.vue";
 </script>
 
 <template>

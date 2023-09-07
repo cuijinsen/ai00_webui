@@ -12,7 +12,7 @@ export const useChatStore = defineStore({
     nowchat:"",
     isChatting:false,
     settings:true,
-    serverip:"127.0.0.1:65530",
+    serverip:"127.0.0.1:3000",
     Max_Tokens:1000,
     TOP_P:0.5,
     Temperature:1,

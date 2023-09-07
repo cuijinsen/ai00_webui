@@ -106,15 +106,16 @@ const sendChatMessage = async (content: string = userMessage.value) => {
     chatStore.setChatting(true)
     const messlist = chatStore.getHistory()
     const contlist = []
+    const ntime = moment().format('YYYY MMM Do dddd a')
 
       contlist.push({
         role:'user',
-        content:'现在的时间是' + moment().format('YYYY MMM Do dddd a')
+        content:'现在的时间是' + ntime
       })
 
       contlist.push({
         role:'assistant',
-        content:'好的我知道了！'
+        content:'好的我知道了！现在是' + ntime
       })
 
       contlist.push({

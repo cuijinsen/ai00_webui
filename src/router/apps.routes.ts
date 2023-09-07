@@ -1,4 +1,5 @@
 import chatRoutes from "@/views/app/chat/chatRoutes";
+import todoRoutes from "~/src/views/app/todo/Routes";
 
 export default [
   {
@@ -10,7 +11,7 @@ export default [
       title: "Chat",
     },
     component: () =>
-      import(/* webpackChunkName: "app-chat" */ "@/views/app/chat/ChatApp.vue"),
+      import("@/views/app/chat/ChatApp.vue"),
     children: [...chatRoutes],
   },
   {
@@ -22,6 +23,19 @@ export default [
       title: "LunWen",
     },
     component: () =>
-      import(/* webpackChunkName: "app-chat" */ "@/views/app/lunwen.vue")
+      import("@/views/app/lunwen.vue"),
+
+  },  
+  {
+    path: "/apps/todo",
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+      category: "APP",
+      title: "Todo",
+    },
+    component: () =>
+      import("@/views/app/todo/App.vue"),
+    children: [...todoRoutes],
   },
 ];

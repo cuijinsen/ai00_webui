@@ -35,9 +35,9 @@ export default {
   },
   menu: {
     dashboard: "主页",
-    chat: "聊天室",
+    chat: "聊天",
     lunwen: "论文",
-
+    todo: "功能模板案例",
   },
   dashboard: {
 

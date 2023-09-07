@@ -9,9 +9,9 @@ import { useCustomizeThemeStore } from "@/stores/customizeTheme";
 import ToolbarLanguage from "@/components/toolbar/ToolbarLanguage.vue";
 import ToolbarNotifications from "./ToolbarNotifications.vue";
 import ToolbarUser from "./ToolbarUser.vue";
-import { useTodoStore } from "@/views/app/todo/todoStore";
+
 const { mdAndUp } = useDisplay();
-const todoStore = useTodoStore();
+
 const customizeTheme = useCustomizeThemeStore();
 const showMobileSearch = ref(false);
 </script>
@@ -52,7 +52,7 @@ const showMobileSearch = ref(false);
         <v-btn v-if="!mdAndUp" icon @click="showMobileSearch = true">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-        <!--
+   
 
         <v-btn v-if="mdAndUp" icon>
           <v-badge dot color="success">
@@ -60,11 +60,11 @@ const showMobileSearch = ref(false);
           </v-badge>
         </v-btn>
         <ToolbarNotifications />
-         -->
+         
         <v-divider vertical thickness="2" inset class="ml-5 mr-1"></v-divider>
 
         <ToolbarLanguage />
-       <!-- <ToolbarUser />  -->
+        <ToolbarUser />   
       </div>
     </div>
   </v-app-bar>

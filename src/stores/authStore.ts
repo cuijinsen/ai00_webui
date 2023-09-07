@@ -19,7 +19,7 @@ export const useAuthStore = defineStore("auth", {
   persist: {
     enabled: true,
     strategies: [
-      { storage: localStorage, paths: ["isLoggedIn"] },
+      { storage: localStorage, paths: ["isLoggedIn", "user", "profile"] },
       // { storage: sessionStorage, paths: ["profile"] }
     ],
   },
@@ -44,6 +44,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     logout() {
+      this.isLoggedIn = false;
       router.push({ name: "auth-signin" });
     },
   },

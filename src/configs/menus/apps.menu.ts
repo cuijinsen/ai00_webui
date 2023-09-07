@@ -12,6 +12,12 @@ export default [
     text: "Lunwen",
     link: "/apps/lunwen",
   },
+  {
+    icon: "mdi-file-document-multiple-outline",
+    key: "menu.todo",
+    text: "Todo",
+    link: "/apps/todo",
+  },
 
   // {
   //   icon: "mdi-bookmark-plus",
