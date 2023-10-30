@@ -45,22 +45,23 @@ const scrollToBottom = () => {
     <!-- ---------------------------------------------- -->
     <template v-if="!customizeTheme.miniSidebar" v-slot:prepend>
       <v-card
-        style="box-shadow: rgba(0, 0, 0, 0.05) 0px 25px 15px -20px"
+        style="box-shadow: rgba(0, 0, 0, 0.05) 0px 25px 15px -20px;"
         height="100"
         class="d-flex align-center justify-center"
       >
         <img
           v-if="customizeTheme.darkTheme"
           width="200"
-          src="@/assets/logo_dark.svg"
+          src="@/assets/logo4.gif"
           alt=""
         />
         <img
           v-else="customizeTheme.darkTheme"
           width="200"
-          src="@/assets/logo_light.svg"
+          src="@/assets/logo3.gif"
           alt=""
         />
+        <v-sheet class="bk" color="primary"></v-sheet>
       </v-card>
     </template>
 
@@ -75,7 +76,6 @@ const scrollToBottom = () => {
     <!-- ---------------------------------------------- -->
     <template v-if="!customizeTheme.miniSidebar" v-slot:append>
       <v-card
-        theme="dark"
         height="225"
         class="pa-3"
         variant="text"
@@ -120,4 +120,15 @@ const scrollToBottom = () => {
   </v-navigation-drawer>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.bk{
+  height: 55px;
+  width: 75px;
+  opacity: 0.35;
+  border-radius: 20%;
+  position:absolute;
+  top: 33px;
+  left: 53px;
+  z-index: -1;
+}
+</style>

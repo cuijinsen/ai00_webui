@@ -4,9 +4,10 @@
 * @Description:
 -->
 <script setup lang="ts">
-import StatusMenu from "./StatusMenu.vue";
+
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 
 const authStore = useAuthStore();
@@ -16,64 +17,42 @@ const handleLogout = () => {
   console.log(router);
 };
 
+ 
+
 const navs = [
   {
-    title: "Profile Details",
+    title: "注册用户",
     key: "menu.profileDetails",
     link: "/profile",
     icon: "mdi-account-box-outline",
   },
   {
-    title: "Plans and Billing",
+    title: "用户登录",
     key: "menu.plansAndBilling",
     link: "/plans-and-billing",
     icon: "mdi-credit-card-outline",
-  },
-  {
-    title: "Team",
-    key: "menu.team",
-    link: "/team",
-    icon: "mdi-account-group-outline",
-  },
-  {
-    title: "API Dashboard",
-    key: "menu.apiDashboard",
-    link: "/api-dashboard",
-    icon: "mdi-monitor-dashboard",
-  },
-  {
-    title: "Integrations",
-    key: "menu.integrations",
-    link: "/integrations",
-    icon: "mdi-puzzle-outline",
-  },
-  {
-    title: "Ask the Community",
-    key: "menu.askCommunity",
-    link: "/ask-the-community",
-    icon: "mdi-help-circle-outline",
   },
 ];
 </script>
 
 <template>
-  <v-menu
-    :close-on-content-click="false"
-    location="bottom right"
-    transition="slide-y-transition"
-  >
+ 
+  <v-menu :close-on-content-click="false" location="bottom right" transition="slide-y-transition">
     <!-- ---------------------------------------------- -->
     <!-- Activator Btn -->
     <!-- ---------------------------------------------- -->
-    <template v-slot:activator="{ props }">
+    <template  v-if="!authStore.isLoggedIn" v-slot:activator >
+      <v-btn class="mx-2" icon @click="authStore.configDialog = true;">
+        <v-avatar size="40">
+          <v-img src="/tou/user.jpg"></v-img>
+        </v-avatar>
+      </v-btn>
+    </template>
+    <template v-else v-slot:activator="{ props }" >
       <v-btn class="mx-2" icon v-bind="props">
-        <v-badge content="2" color="success" dot bordered>
-          <v-avatar size="40">
-            <v-img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwrAiMevuwrbU9o0Ck2paVf4ufHUDb2dU48MEDrAlrQw&s"
-            ></v-img>
-          </v-avatar>
-        </v-badge>
+        <v-avatar size="40">
+          <v-img src="/tou/user.jpg"></v-img>
+        </v-avatar>
       </v-btn>
     </template>
     <v-card max-width="300">
@@ -81,18 +60,15 @@ const navs = [
         <!-- ---------------------------------------------- -->
         <!-- Profile Area -->
         <!-- ---------------------------------------------- -->
-        <v-list-item to="/profile">
+        <v-list-item >
           <template v-slot:prepend>
             <v-avatar size="40">
-              <v-img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwrAiMevuwrbU9o0Ck2paVf4ufHUDb2dU48MEDrAlrQw&s"
-              ></v-img>
+              <v-img src="/tou/user.jpg"></v-img>
             </v-avatar>
           </template>
 
           <v-list-item-title class="font-weight-bold text-primary">
-            User
-            <StatusMenu />
+            未注册用户
           </v-list-item-title>
           <v-list-item-subtitle>
             <!-- {{ $store.state.user.email  }} -->
@@ -104,16 +80,8 @@ const navs = [
       <!-- ---------------------------------------------- -->
       <!-- Menu Area -->
       <!-- ---------------------------------------------- -->
-
       <v-list variant="flat" elevation="0" :lines="false" density="compact">
-        <v-list-item
-          color="primary"
-          v-for="(nav, i) in navs"
-          :key="i"
-          :to="nav.link"
-          link
-          density="compact"
-        >
+        <v-list-item color="primary" v-for="(nav, i) in navs" :key="i"   link density="compact">
           <template v-slot:prepend>
             <v-avatar size="30">
               <v-icon>{{ nav.icon }}</v-icon>
@@ -145,12 +113,7 @@ const navs = [
             </v-list-item-subtitle>
           </div>
         </v-list-item>
-        <v-list-item
-          color="primary"
-          link
-          @click="handleLogout"
-          density="compact"
-        >
+        <v-list-item color="primary" link @click="handleLogout" density="compact">
           <template v-slot:prepend>
             <v-avatar size="30">
               <v-icon>mdi-logout</v-icon>

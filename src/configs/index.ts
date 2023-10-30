@@ -1,6 +1,8 @@
 import navigation from "./navigation";
 import locales from "./locales";
 import currency from "./currencies";
+
+console.log(navigation)
 export default {
   // product display information
   product: {

@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 
 import router from "@/router";
 
+
+
 interface Profile {
   id: string;
   name: string;
@@ -12,6 +14,7 @@ interface Profile {
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     isLoggedIn: false,
+    configDialog: false,
     user: null,
     profile: null as Profile | null,
   }),

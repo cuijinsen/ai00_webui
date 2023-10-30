@@ -18,7 +18,7 @@ const customizeTheme = useCustomizeThemeStore();
   <!-- ---------------------------------------------- -->
   <!---MainArea -->
   <!-- ---------------------------------------------- -->
-
+ 
   <v-main
     class="main-container"
     v-touch="{

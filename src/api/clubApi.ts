@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useSnackbarStore } from "@/stores/snackbarStore";
-const snackbarStore = useSnackbarStore();
+import { useAuthStore } from "@/stores/authStore";
+const AuthStore = useAuthStore();
 // change the access key to your own
 const ACCESS_KEY = import.meta.env.VITE_GITHUB_CLIENT_ID;
 

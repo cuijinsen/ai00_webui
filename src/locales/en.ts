@@ -35,9 +35,11 @@ export default {
   },
   menu: {
     dashboard: "Home",
+    home: "Home",
+    settings: "Settings",
     chat: "Chat",
     lunwen: "LunWen",
-    todo: "Functional Template Case",
+    todo: "Todos",
 
   },
 
@@ -119,3 +121,4 @@ export default {
     },
   },
 };
+

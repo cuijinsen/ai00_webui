@@ -16,6 +16,6 @@
       "~/*": ["./*"],
       "@/*": ["./src/*"]
     },
-    "types": ["vitest/globals"]
+    "types": ["vite/client"]
   }
 }

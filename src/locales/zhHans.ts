@@ -12,7 +12,9 @@ export default {
     policy: "隐私政策",
   },
   login: {
-    title: "登录",
+    title: "账户登录",
+    account: "账户",
+    user: "电子邮件 或 用户名",
     email: "电子邮件",
     password: "密码",
     button: "登录",
@@ -21,6 +23,12 @@ export default {
     noaccount: "还没有帐号？",
     create: "在此处创建一个",
     error: "电子邮件/密码组合无效",
+    model: "登录模式",
+    model1: "验证登录",
+    model2: "密码登录",
+    agree: "我已理解并愿意遵守《AI00 用户协议》以及《AI00 社区规范》",
+    nopass: "没有账户，新注册一个",
+    code: "验证码",
   },
   register: {
     title: "创建帐号",
@@ -32,12 +40,14 @@ export default {
     agree: "签署即表示您同意",
     account: "已经有帐号了？",
     signin: "登录",
+    rule: "社区规范",
   },
   menu: {
-    dashboard: "主页",
+    home: "主页",
+    settings: "设置",
     chat: "聊天",
     lunwen: "论文",
-    todo: "功能模板案例",
+    todo: "项目进度",
   },
   dashboard: {
 
@@ -54,6 +64,8 @@ export default {
   $vuetify: {
     badge: "徽章",
     close: "关",
+    open: "开",
+    clear: "清除",
     dataIterator: {
       noResultsText: "未找到匹配的记录",
       loadingText: "正在载入项目...",

@@ -1,41 +1,43 @@
-import chatRoutes from "@/views/app/chat/chatRoutes";
-import todoRoutes from "~/src/views/app/todo/Routes";
+ 
+import chatRoutes from "@/views/demos/chat/chatRoutes";
+import todoRoutes from "@/views/demos/todo/Routes";
+import newchatRoutes from "@/views/demos/newchat/Routes";
 
 export default [
   {
-    path: "/apps/chat",
+    path: "/demos/chat",
     meta: {
       requiresAuth: true,
       layout: "ui",
-      category: "APP",
+      category: "DEMOS",
       title: "Chat",
     },
     component: () =>
-      import("@/views/app/chat/ChatApp.vue"),
+      import("@/views/demos/chat/App.vue"),
     children: [...chatRoutes],
   },
   {
-    path: "/apps/lunwen",
+    path: "/demos/todo",
     meta: {
       requiresAuth: true,
       layout: "ui",
-      category: "APP",
-      title: "LunWen",
-    },
-    component: () =>
-      import("@/views/app/lunwen.vue"),
-
-  },  
-  {
-    path: "/apps/todo",
-    meta: {
-      requiresAuth: true,
-      layout: "ui",
-      category: "APP",
+      category: "DEVELOPER",
       title: "Todo",
     },
     component: () =>
-      import("@/views/app/todo/App.vue"),
+      import("@/views/demos/todo/App.vue"),
     children: [...todoRoutes],
+  },  
+  {
+    path: "/demos/newchat",
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+      category: "DEMOS",
+      title: "NewChat",
+    },
+    component: () =>
+      import("@/views/demos/newchat/App.vue"),
+    children: [...newchatRoutes],
   },
-];
+]; 

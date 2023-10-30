@@ -60,6 +60,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
+
 .v-list-group .v-list-item {
   padding-left: 8px !important;
 }

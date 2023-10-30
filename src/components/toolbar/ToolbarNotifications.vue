@@ -54,7 +54,7 @@ const messages = [
     <!-- Activator Btn -->
     <!-- ---------------------------------------------- -->
     <template v-slot:activator="{ props }">
-      <v-btn icon v-bind="props" class="text-none">
+      <v-btn icon v-bind="props" color="primary">
         <v-badge content="2" color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>

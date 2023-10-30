@@ -1,22 +1,21 @@
 import menuApps from "./menus/apps.menu";
+import menuMain from "./menus/main.menu";
+import menuDev from "./menus/dev.menu";
 
 export default {
   menu: [
     {
-      text: "",
+      text: "AI00 Server",
       key: "",
-      items: [
-        {
-          key: "menu.dashboard",
-          text: "Dashboard",
-          link: "/dashboard",
-          icon: "mdi-view-dashboard-outline",
-        },
-      ],
+      items: menuMain,
     },
     {
-      text: "Apps",
+      text: "Demos",
       items: menuApps,
+    },
+    {
+      text: "Developer",
+      items: menuDev,
     },
   ],
 };

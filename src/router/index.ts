@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory , createWebHashHistory} from "vue-router";
 
 import AppsRoutes from "./apps.routes";
 
@@ -6,20 +6,36 @@ import AppsRoutes from "./apps.routes";
 export const routes = [
   {
     path: "/",
-    redirect: "/dashboard",
+    redirect: "/index",
     meta: {},
   } as any,
   {
-    path: "/dashboard",
+    path: "/index",
     meta: {
       requiresAuth: true,
-      layout: "landing",
+      layout: "ui",
+      category: "SYSTEM",
+      title: "Home",
     },
     component: () => import("@/views/pages/DashBoard.vue"),
   },
   {
+    path: "/settings",
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+      category: "SYSTEM",
+      title: "Settings",
+    },
+    component: () => import("@/views/pages/Settings.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "error",
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+    },
     component: () =>
       import(/* webpackChunkName: "error" */ "@/views/errors/NotFoundPage.vue"),
   },
@@ -31,7 +47,7 @@ export const routes = [
 export const dynamicRoutes = [];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   // hash模式：createWebHashHistory，history模式：createWebHistory
   // process.env.NODE_ENV === "production"
 
@@ -44,5 +60,5 @@ const router = createRouter({
     }
   },
 });
-
+console.log(routes)
 export default router;

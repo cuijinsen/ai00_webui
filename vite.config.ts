@@ -9,6 +9,8 @@ import AutoImport from "unplugin-auto-import/vite";
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -26,6 +28,17 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "happy-dom",
+  },
+  base: '/',
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        // 生产环境打包移除console
+        drop_console: true,
+        drop_debugger: true,
+      }
+    }
   },
   resolve: {
     alias: {
