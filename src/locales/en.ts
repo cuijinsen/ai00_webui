@@ -40,6 +40,7 @@ export default {
     chat: "Chat",
     lunwen: "LunWen",
     todo: "Todos",
+    write: "Write",
 
   },
 
@@ -53,6 +54,12 @@ export default {
     hello: "Hello, I am your AI assistant. If you have any questions or instructions, please let me know!",
 
   },
+  write: {
+    settings: "Settings",
+    write: "Write",
+
+
+ },
 
   // Vuetify components translations
   $vuetify: {

@@ -2,6 +2,7 @@
 import chatRoutes from "@/views/demos/chat/chatRoutes";
 import todoRoutes from "@/views/demos/todo/Routes";
 import newchatRoutes from "@/views/demos/newchat/Routes";
+import lunwenRoutes from "@/views/demos/lunwen/Routes";
 
 export default [
   {
@@ -34,10 +35,22 @@ export default [
       requiresAuth: true,
       layout: "ui",
       category: "DEMOS",
-      title: "NewChat",
+      title: "Write",
     },
     component: () =>
       import("@/views/demos/newchat/App.vue"),
     children: [...newchatRoutes],
+  },
+  {
+    path: "/demos/lunwen",
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+      category: "DEMOS",
+      title: "Lunwen",
+    },
+    component: () =>
+      import("@/views/demos/lunwen/App.vue"),
+    children: [...lunwenRoutes],
   },
 ]; 

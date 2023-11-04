@@ -14,7 +14,12 @@ module Ai00Api {
     onmessage?: Function
   ) {
     const ai00Store = useAi00Store();
-
+    if(window.location.host == "localhost:4399"){
+      ai00Store.setserverip("127.0.0.1:65530");
+    }else{
+      ai00Store.setserverip(window.location.host)
+    }
+    
     if (method == "POST") {
       const response = await fetch(ai00Store.server + apiurl, {
         method: "POST",
@@ -33,7 +38,6 @@ module Ai00Api {
           status: number
         ) => {
           let partialLine = "";
-          let contentss = "";
           let contentscache = "";
           let temp = 0;
           while (true) {
@@ -69,23 +73,26 @@ module Ai00Api {
                 status === 200
                   ? json.choices[0].delta.content ?? ""
                   : json.error.message;
-              //console.log(content)
+                console.log(content)
 
-              if (content == "User" && temp == 0) {
+              if ((content == "User" || content == "Question" ||  content == "Q" ) && temp == 0) {
                 temp = 1;
+              //  console.log("Key found",content)
+                continue;
               }
 
               if (temp == 1 && content == ":") {
-                return;
-              } else if (temp == 1) {
+                // console.log("break",content)
+                break;
+               } else if (temp == 1) {
                 temp = 0;
+               // console.log("go",content)
               }
 
               contentscache += content;
               if (temp == 0) {
-                contentss = contentscache;
                 if (onmessage) {
-                  onmessage(contentss);
+                  onmessage(contentscache);
                 }
               }
             }
@@ -93,11 +100,12 @@ module Ai00Api {
         };
         await readStream(reader, status);
       } else {
+        const responseBody = await response.json();
         if (onmessage) {
-          onmessage(response);
+          onmessage(responseBody);
         }
 
-        return response.json();
+        return responseBody;
       }
     } else if (method == "GET") {
       const response = await fetch(ai00Store.server + apiurl, {

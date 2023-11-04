@@ -18,7 +18,7 @@ export const useChatStore = defineStore({
     Temperature:1,
     Presence:0.3,
     Frequency:0.3,
-    Penalty:100,
+    Penalty:400,
     Model:"",
     AIimg:""
   }),

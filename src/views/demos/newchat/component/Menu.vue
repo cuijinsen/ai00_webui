@@ -9,61 +9,77 @@ const todoStore = useTodoStore();
 </script>
 
 <template>
-  <v-card height="100%" class="pa-3">
-    <!-- ---------------------------------------------- -->
-    <!-- Add Task Dialog -->
-    <!-- ---------------------------------------------- -->
+<v-card
+      class="rr d-none d-md-block sidebar"
+      prepend-icon="mdi-cog"
+ 
+    >
+      <template v-slot:title>
+        {{ $t("write.settings") }}
+      </template>
 
-    <v-btn color="primary" block size="large" class="mb-3">Add Task</v-btn>
+      <template v-slot:text>
 
-    <v-list nav class="mt-2 pa-0">
-      <v-list-item
-        prepend-icon="mdi-calendar-check"
-        to="/demos/todo/main"
-        active-class="text-primary"
-        link
-        title="Tasks"
-      >
-        <template v-slot:append>
-          <v-badge
-            color="primary"
-            :content="todoStore.getTodoList.length"
-            inline
-          ></v-badge>
-        </template>
-      </v-list-item>
-      <v-list-item
-        prepend-icon="mdi-check"
-        to="/demos/todo/completed"
-        active-class="text-primary"
-        link
-        title="Completed"
-      >
-        <template v-slot:append>
-          <v-badge
-            color="primary"
-            :content="todoStore.getCompletedTodos.length"
-            inline
-          ></v-badge>
-        </template>
-      </v-list-item>
-    </v-list>
-    <div class="pa-1 mt-2 text-overline text-grey">Labels</div>
-    <v-list nav class="mt-2 pa-0">
-      <v-list-item
-        v-for="label in todoStore.labels"
-        active-class="text-primary"
-        :to="`/demos/todo/label/${label.id}`"
-        link
-        :title="label.title"
-        :key="label.id"
-      >
-        <template v-slot:prepend>
-          <v-icon :color="label.color">mdi-label-outline </v-icon>
-        </template>
-      </v-list-item>
-    </v-list>
-  </v-card>
+        <v-card-text> Max Tokens </v-card-text>
+        <v-slider
+          v-model="todoStore.Max_Tokens"
+          color="primary"
+          :min="100"
+          :max="8000"
+          :step="100"
+          thumb-label="always"
+        ></v-slider>
+
+        <v-card-text> Top P </v-card-text>
+        <v-slider
+          v-model="todoStore.TOP_P"
+          color="primary"
+          :min="0"
+          :max="1"
+          :step="0.1"
+          thumb-label="always"
+        ></v-slider>
+
+        <v-card-text> Temperature </v-card-text>
+        <v-slider
+          v-model="todoStore.Temperature"
+          color="primary"
+          :min="0"
+          :max="2"
+          :step="0.1"
+          thumb-label="always"
+        ></v-slider>
+
+        <v-card-text> Presence Penalty </v-card-text>
+        <v-slider
+          v-model="todoStore.Presence"
+          color="primary"
+          :min="0"
+          :max="2"
+          :step="0.1"
+          thumb-label="always"
+        ></v-slider>
+
+        <v-card-text> Frequency Penalty </v-card-text>
+        <v-slider
+          v-model="todoStore.Frequency"
+          color="primary"
+          :min="0"
+          :max="2"
+          :step="0.1"
+          thumb-label="always"
+        ></v-slider>
+        <v-card-text> Half Life </v-card-text>
+        <v-slider
+          v-model="todoStore.Penalty"
+          color="primary"
+          :min="100"
+          :max="1000"
+          :step="10"
+          thumb-label="always"
+        ></v-slider>
+      </template>
+    </v-card>
 </template>
 
 <style scoped lang="scss"></style>

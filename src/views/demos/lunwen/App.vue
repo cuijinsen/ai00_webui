@@ -5,7 +5,7 @@
 -->
 <script setup lang="ts">
 import TodoMenu from "./component/Menu.vue";
-import TodoCard from "./component/Card.vue";
+import Tigang from "./component/Tigang.vue";
 </script>
 
 <template>
@@ -16,7 +16,6 @@ import TodoCard from "./component/Card.vue";
     <div class="d-none d-md-block sidebar">
       <TodoMenu />
     </div>
-
     <!-- ---------------------------------------------- -->
     <!--  List Todo -->
     <!-- ---------------------------------------------- -->

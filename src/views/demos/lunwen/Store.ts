@@ -2,8 +2,8 @@ import { defineStore } from "pinia";
 
 
 
-export const useTodoStore = defineStore({
-  id: "todo",
+export const useLunwenStore = defineStore({
+  id: "lunwen",
   state: () => ({
  
     apiKey: "",
@@ -21,7 +21,10 @@ export const useTodoStore = defineStore({
     Frequency:0.3,
     Penalty:400,
     Model:"",
-    AIimg:""
+    AIimg:"",
+    title:"",
+    tigang:"",
+    tigangs:[]
   }),
 
   // persist: {

@@ -28,7 +28,7 @@
     "focus-trap": "^7.4.0",
     "happy-dom": "^9.6.1",
     "html-to-image": "^1.11.11",
-    "md-editor-v3": "^4.2.2",
+    "md-editor-v3": "^4.8.2",
     "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
     "moment": "^2.29.4",
     "openai": "^3.2.1",

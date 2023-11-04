@@ -48,6 +48,7 @@ export default {
     chat: "聊天",
     lunwen: "论文",
     todo: "项目进度",
+    write: "续写",
   },
   dashboard: {
 
@@ -57,6 +58,12 @@ export default {
     settings: "参数设置",
     chating: "愉快地聊天吧",
     hello: "你好，我是你的AI助手。有什么问题或指令请尽管吩咐！",
+
+  },
+  write: {
+     settings: "参数设置",
+     write: "续写",
+ 
 
   },
 

@@ -5,81 +5,108 @@
 -->
 <script setup lang="ts">
 import { useTodoStore } from "../Store";
-import { Todo } from "../Types";
-
-const props = defineProps<{
-  tasks: Todo[];
-}>();
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+import * as ai00Type from "@/ai00sdk/ai00Type";
+import  Copy  from "./Copy.vue";
 
 const todoStore = useTodoStore();
-const searchKey = ref("");
+const text = ref('# Hello Editor');
+ 
+const toolbar = ref([
+  'bold',
+  'underline',
+  'italic',
+  '-',
+  'title',
+  'quote',
+  'unorderedList',
+  'orderedList',
+  'task',
+  '-',
+  'codeRow',
+  'code',
+  'table',
+  '-',
+  'revoke',
+  'next',
+  '=',
+  'prettier',
+  'preview',
+]) as ToolbarNames[];
 
-const getLabelColor = (id: string) => {
-  // Find the label by id from the labels array
-  const label = todoStore.labels.find((l) => l.id === id);
-  // Return the color for that label, or an empty string
-  return label ? label.color : "";
+
+const sendPrompt = async () => {
+ 
+const prompt = text.value.replace(/\n\n/g, "\n")
+const body: ai00Type.OaiCompletionsType = {
+    prompt: [prompt],
+    max_tokens: todoStore.Max_Tokens,
+    temperature: todoStore.Temperature,
+    top_p: todoStore.TOP_P,
+    presence_penalty: todoStore.Presence,
+    frequency_penalty: todoStore.Frequency,
+    penalty_decay: Math.exp(-0.69314718055994 / Number(todoStore.Penalty)),
+    stop: ["\n\n","\nQ:","\nUser:","\nQuestion:","\n\nQ:","\n\nUser:","\n\nQuestion:","Q:","User:","Question:"],
+    stream: true,
+  }
+ const temp :string = text.value
+
+  // 调用 window.Ai00Api.oai_chat_completions 函数，传入参数：
+  // body 参数数据结构是 /ai00sdk/ai00Type.ts 中定义 的 ai00Type.OaiChatCompletionsType
+  window.Ai00Api.oai_completions(body, async (res: string) => {
+    text.value = temp + res
+    
+  })
 };
 
-// filterdTodoList is a computed value that will filter the todoList based on the searchKey value
-const filterdTodoList = computed(() => {
-  return props.tasks.filter((todo) => {
-    return todo.title.toLowerCase().includes(searchKey.value.toLowerCase());
-  });
-});
+
+import * as htmlToImage from 'html-to-image';
+
+
+const goClipboard = async () => {
+const element = document.getElementById("po");
+if (element) {
+  const blob = await htmlToImage.toBlob(element, { cacheBust: true,  skipFonts: true,skipAutoScale: true, backgroundColor: '#f8f8f8' })
+  if (blob) {
+    await navigator.clipboard.write([
+      new ClipboardItem({ [blob.type]: blob })
+    ]);
+  }
+}
+};
+
 </script>
 
 <template>
-  <v-card height="100%">
-    <!-- ---------------------------------------------- -->
-    <!-- Filter Input -->
-    <!-- ---------------------------------------------- -->
-    <v-text-field
-      clearable
-      variant="solo"
-      class="elevation-1 ma-3"
-      hide-details
-      prepend-inner-icon="mdi-magnify"
-      placeholder="Filter Tasks"
-      v-model="searchKey"
-    ></v-text-field>
-
-    <!-- ---------------------------------------------- -->
-    <!-- List -->
-    <!-- ---------------------------------------------- -->
-    <perfect-scrollbar class="todo-list">
-      <transition-group name="fade">
-        <div v-for="todo in filterdTodoList" :key="todo.id" >
-          <div class="todo-item   pa-5">
-
-            <div class="flex-fill mx-5">
-              <div
-                class="font-weight-bold"
-                >
-                {{ todo.title }}
-              </div>
-              <div>
-                {{ todo.detail }}
-              </div>
-              <div>
-                <v-chip
-                  :key="tag"
-                  size="x-small"
-                  variant="outlined"
-                  class="mr-1 mt-1"
-                  :color="getLabelColor(tag)"
-                  v-for="tag in todo.tags"
-                >
-                  {{ tag }}
-                </v-chip>
-              </div>
-            </div>
+  <v-card height="100%"
+  prepend-icon="mdi-file-document-edit">
+    <template v-slot:title>
+      {{ $t("write.write") }} 
+      <v-spacer></v-spacer>
  
-          </div>
-        </div>
-      </transition-group>
-    </perfect-scrollbar>
+        <v-btn  color="primary" @click="sendPrompt">        {{ $t("write.write") }} </v-btn>
+ 
+        <v-btn  color="primary" @click="text=''" style="margin-left: 30px;">清空</v-btn>
+
+        <v-btn  color="primary" @click="goClipboard" style="margin-left: 30px;">截图</v-btn>
+      </template>
+      <v-card-text  >
+      <MdEditor v-model="text" 
+      :toolbars="toolbar"
+      class="editor"
+      :preview = false
+      
+      />
+      <div class="hidejietu" id="po">
+ 
+          <Copy  :text="text+'\n\n'" />
+          <p style="margin-top: 20px;">✅ Powered by AI00 for RWKV ( https://github.com/cgisky1980/ai00_rwkv_server ) </p>
+      </div>
+      </v-card-text>
+ 
   </v-card>
+
 </template>
 
 <style scoped lang="scss">
@@ -96,5 +123,14 @@ const filterdTodoList = computed(() => {
       cursor: pointer;
     }
   }
+}
+
+.editor{
+  height: calc(100vh - 200px);
+}
+
+.hidejietu{
+  margin-top: 20px;
+  padding: 20px;
 }
 </style>

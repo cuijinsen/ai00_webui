@@ -5,4 +5,16 @@ export default [
     text: "Chat",
     link: "/demos/chat",
   },
+  {
+    icon: "mdi-forum-outline",
+    key: "menu.write",
+    text: "Write",
+    link: "/demos/newchat",
+  },
+  {
+    icon: "mdi-forum-outline",
+    key: "menu.lunwen",
+    text: "Lunwen",
+    link: "/demos/lunwen",
+  },
 ];

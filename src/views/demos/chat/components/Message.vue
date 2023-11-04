@@ -143,9 +143,7 @@ const copyText = (event: Event) => {
         </span>
       </v-card-actions>
     </v-card>
-    <!--
-    一个 sheet 用来放置按钮 背景透明,停靠在   <div   class="d-flex  justify-align-start"   这个div底部
-      -->
+
   </div>
 </template>
 
