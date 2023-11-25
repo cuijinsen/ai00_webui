@@ -194,7 +194,7 @@ const getLunwen = async () => {
 </script>
 
 <template>
-  <v-card class="rr d-none d-md-block sidebar" prepend-icon="mdi-cog">
+  <v-card class="rr d-none d-md-block sidebar" prepend-icon="mdi-cog" >
     <template v-slot:title>
       {{ $t("write.settings") }}
     </template>

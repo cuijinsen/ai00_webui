@@ -13,7 +13,7 @@ import TodoCard from "./component/Card.vue";
     <!-- ---------------------------------------------- -->
     <!-- Side Bar -->
     <!-- ---------------------------------------------- -->
-    <div class="d-none d-md-block sidebar">
+    <div class="d-none d-md-block sidebar" color="primary">
       <TodoMenu />
     </div>
 
@@ -44,7 +44,7 @@ import TodoCard from "./component/Card.vue";
     flex-direction: column;
     width: 300px;
     height: 100%;
-    background-color: #fff;
+ 
     margin-right: 20px;
   }
 
@@ -52,7 +52,7 @@ import TodoCard from "./component/Card.vue";
     flex: 1;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+ 
   }
 }
 </style>

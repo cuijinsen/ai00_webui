@@ -12,11 +12,11 @@
 </script>
 
 <template>
-  <v-card class="mx-auto bg-primary titles" width="100%"   title="AI00 Assistant"  >
+  <v-card class="mx-auto bg-primary titles" width="100%"   :title="ChatStore.chatHistory.ai.name"  >
     <template #subtitle>
       <v-row no-gutters>
           <v-col cols="12" sm="3">
-              chat mode
+            AI00 chat mode
           </v-col>
           <v-col cols="12" sm="9">
               <p>Model: {{ ChatStore.Model }}</p>
@@ -26,9 +26,10 @@
         </v-row>
     </template>
 
-    <v-avatar :image="ChatStore.AIimg" class="aitou" size="100"></v-avatar>
+    <v-avatar :image="ChatStore.chatHistory.ai.avatar" class="aitou" size="100"></v-avatar>
   </v-card>
-  <v-avatar image="/tou/8.png" class="mytou"  size="100"  ></v-avatar>
+  <v-avatar :image="ChatStore.chatHistory.me.avatar" class="mytou"  size="100"  ></v-avatar>
+  <div class="myname"> {{  ChatStore.chatHistory.me.name }}</div>
 </template>
 
 <style scoped lang="scss">
@@ -78,5 +79,13 @@
   }
 }
 
-
+.myname{
+  position: absolute;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 120px;
+  color: rgb(var(--v-theme-primary));
+}
 </style>

@@ -4,7 +4,7 @@ import type { clist } from "./chatTypes";
 
 
 export const ChatListStore = defineStore({
-  id: "chatlist",
+  id: "rpgchatlist",
   state: () => ({
     ids:[],
   }),
@@ -23,22 +23,6 @@ export const ChatListStore = defineStore({
   },
   actions: {
 
-    changeTitle(value:string,title:string){
-
-      const arrLen = this.ids.length
-      for (let i = 0; i < arrLen; i++) {
-
-        if (this.ids[i].id_name === value) {
-          if( this.ids[i].title == "新的聊天"){
-            this.ids[i].title = title
-          }
-
-
-        }
-
-      }
-
-    },
     addToChatList(payload: clist) {
       this.ids.push(payload);
     },

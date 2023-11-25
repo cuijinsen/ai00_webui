@@ -78,7 +78,7 @@
 
 
  watch(
-  () => chatStore.getnowchat,
+  () => chatStore.nowchat,
   () => {
     nextTick(() => {
       scrollToBottom()

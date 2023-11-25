@@ -1,114 +1,133 @@
 import { defineStore } from "pinia";
-import type { Message, User } from "./chatTypes";
+import type { Message, User , clist } from "./chatTypes";
+
+const Ai:User = {
+  id: 2,
+  name: "Assistant",
+  avatar: "/tou/0.png"
+}
+
+const You:User = {
+  id: 1,
+  name: "User",
+  avatar: "/tou/8.png"
+}
+
+const history: Message = {
+  id: "123",
+  user: Ai,
+  text: "hi",
+  timestamp: ""
+}
+
+const ss :Message[] = []
+ss.push(history)
+
+const historys:clist = {
+  id_name: "123",
+  history: ss,
+  ai:Ai,
+  me:You
+}
 
 
 export const useChatStore = defineStore({
-  id: "chat",
+  id: "rpgchat",
   state: () => ({
     apiKey: "",
-    chatHistory: [],
-    apiKeyDialog: false,
-    Sidebar:true,
-    nowchat:"",
-    isChatting:false,
-    settings:true,
-    serverip:"127.0.0.1:3000",
-    Max_Tokens:1000,
-    TOP_P:0.5,
-    Temperature:1,
-    Presence:0.3,
-    Frequency:0.3,
-    Penalty:400,
-    Model:"",
-    AIimg:""
+    chatHistory: historys,
+    newchatDialog: false,
+    Sidebar: true,
+    nowchat: "",
+    isChatting: false,
+    showSetting: true,
+
+    Max_Tokens: 1000,
+    TOP_P: 0.5,
+    Temperature: 1,
+    Presence: 0.3,
+    Frequency: 0.3,
+    Penalty: 400,
+
+    Model: "",
   }),
 
   persist: {
     enabled: true,
-    strategies: [{ storage: localStorage, paths: ["chatHistory","nowchat","isWenda","serverip","serverport"] }],
+    strategies: [
+      {
+        storage: localStorage,
+        paths: ["chatHistory", "nowchat"],
+      },
+    ],
   },
 
   getters: {
     getChatHistory() {
-      return this.chatHistory
-    }
-    // If you have set up an API key, please use your own key. If not, please use the one I provided.
-
+      return this.chatHistory;
+    },
   },
   actions: {
-    getSettings(){
-      return this.settings
-    },
-    setSettings(){
-      this.settings = !this.settings
-    },
-    getserverip(){
-      return this.serverip
-    },
-    getserverport(){
-      return this.serverport
-    },
-    setserverip(ip:string){
-      this.serverip = ip
-    },
-    setserverport(port:string){
-      this.serverport = port
-    },
-    getiswenda(){
-      return this.isWenda
-    },
-    setiswenda(bb:boolean){
-       this.isWenda = bb
-    },
-    addToHistory(payload: Message) {
 
-      this.chatHistory.push(payload)
+    setSettings() {
+      this.showSetting = !this.showSetting;
     },
-    startHistory(payload: Message) {
-      this.chatHistory = [];
-      this.chatHistory.push(payload)
+
+    addToHistory(payload: Message) {
+      this.chatHistory.history.push(payload);
     },
-    setHistory(his){
-      this.chatHistory = [];
-      this.chatHistory  = his
+    startHistory(payload: Message,me:User,ai:User) {
+      this.chatHistory.history = [];
+      this.chatHistory.history.push(payload);
+      this.chatHistory.ai = ai;
+      this.chatHistory.me = me;
     },
-    setnowchat(nowchatid:string){
-      this.nowchat = nowchatid
+    setHistory(his: clist) {
+      console.log(this.chatHistory)
+      this.chatHistory.history= his.history;
+      this.chatHistory.ai =his.ai;
+      this.chatHistory.me = his.me;
+ 
+      },
+    setnowchat(nowchatid: string) {
+      this.nowchat = nowchatid;
     },
-    getnowchat(){
-      return  this.nowchat
-    },
-    getChatting(){
-      return  this.isChatting
-    },
-    getHistory() {
-      return this.chatHistory
-    },
-    setChatting(b:boolean){
-      this.isChatting = b
+    setChatting(b: boolean) {
+      this.isChatting = b;
     },
     clearHistory2() {
-       this.chatHistory = [];
-
+      this.chatHistory = [];
     },
     clearHistory() {
       this.chatHistory = [];
-   },
+    },
     // 移除最后一条临时信息
     removeLatestMessage() {
-      this.chatHistory.pop();
+      this.chatHistory.history.pop();
     },
-    changeLatestMessage(msg:string) {
-        let newmsg =  this.chatHistory[this.chatHistory.length-1];
+    changeLatestMessage(msg: string) {
+      let newmsg = this.chatHistory.history[this.chatHistory.history.length - 1];
 
-        this.chatHistory[this.chatHistory.length]
-        //console.log(newmsg);
-        newmsg['text'] = msg + " ";
-        this.chatHistory.splice([this.chatHistory.length-1],1,newmsg);
-      },
-    getLatestMessage(){
-        return this.chatHistory[this.chatHistory.length-1];
-      },
-
+      this.chatHistory[this.chatHistory.history.length];
+      //console.log(newmsg);
+      newmsg["text"] = msg;
+      this.chatHistory.history.splice([this.chatHistory.history.length - 1], 1, newmsg);
+    },
+    getLatestMessage() {
+      return this.chatHistory.history[this.chatHistory.history.length - 1];
+    },
+    deleteMessage(id: string) {
+ 
+      let msg = this.chatHistory.history.find((item) => item.id === id);
+      //获取 msg的 index
+      let index = this.chatHistory.history.indexOf(msg);
+      if(index==0){return}
+      if (msg.user.id === 1) {
+        this.chatHistory.history.splice(index, 2);
+      }
+      if (msg.user.id === 2) {
+        this.chatHistory.history.splice(index - 1, 2);
+      }
+    },
   },
 });

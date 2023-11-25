@@ -26,25 +26,14 @@ const aiMessage = ref('')
 const createMessage = (user: User, text: string) => {
   const message: Message = {
     id: '_' + Math.random().toString(36).substring(2, 11),
-    user,
-    text,
+    user:user,
+    text:text,
     timestamp: new Date().getTime(),
   }
   return message
 }
 
-const user = ref({
-  id: 1,
-  name: 'YOU',
-  avatar: '/tou/8.png',
-})
-
-const bot = ref({
-  id: 2,
-  name: 'AI',
-  avatar: chatStore.AIimg,
-})
-
+ 
 const emits = defineEmits(['scroll'])
 
 
@@ -52,7 +41,7 @@ const emits = defineEmits(['scroll'])
 const sendMessage = () => {
   // 判断是否为空
 
-  if (chatStore.getChatting()) {
+  if (chatStore.isChatting) {
     return
   }
 
@@ -60,13 +49,13 @@ const sendMessage = () => {
 
   // 发送User Message
  
-  chatStore.addToHistory(createMessage(user.value, userMessage.value ))
+  chatStore.addToHistory(createMessage(chatStore.chatHistory.me, userMessage.value ))
 
   // AI等待Message
   aiMessage.value = 'Please wait a moment ......'
-  chatStore.addToHistory(createMessage(bot.value, aiMessage.value ))
+ 
+  chatStore.addToHistory(createMessage(chatStore.chatHistory.ai, aiMessage.value ))
 
-  ChatList.changeTitle(chatStore.getnowchat(), userMessage.value)
   // 请求AI回答
 
    sendChatMessage(userMessage.value)
@@ -80,9 +69,9 @@ const ischat = ref(false)
 const errorMsg = ref('')
 
 watch(
-  () => chatStore.chatHistory,
+  () => chatStore.chatHistory.history,
   () => {
-    ChatList.setHistory(chatStore.getHistory(), chatStore.getnowchat())
+    ChatList.setHistory(chatStore.chatHistory.history, chatStore.nowchat)
   },
   { deep: true }
 )
@@ -91,7 +80,7 @@ watch(
   () => chatStore.isChatting,
   () => {
 
-    ischat.value = chatStore.getChatting()
+    ischat.value = chatStore.isChatting
 
   },
   { deep: true }
@@ -101,15 +90,10 @@ watch(
 const sendChatMessage = async (content: string = userMessage.value) => {
   try {
     chatStore.setChatting(true)
-    const messlist = chatStore.getHistory()
-    //const contlist: any[] = []
+    const messlist = chatStore.chatHistory.history
+    const contlist: any[] = []
 
-     const contlist = [
-      {
-      role: 'user',
-      content: '你好！'
-      }
-    ]
+   //  const contlist = []
 
  
     for (let index = 0; index < messlist.length - 1; index++) {
@@ -132,14 +116,17 @@ const sendChatMessage = async (content: string = userMessage.value) => {
     presence_penalty: chatStore.Presence,
     frequency_penalty: chatStore.Frequency,
     penalty_decay: Math.exp(-0.69314718055994 / Number(chatStore.Penalty)),
-    stop: ["\n\n","\nUser:","User:"],
+    stop: ["\n\n","\n"+chatStore.chatHistory.me.name +":" ,chatStore.chatHistory.me.name+":"],
     stream: true,
+    names:{user:chatStore.chatHistory.me.name,assistant:chatStore.chatHistory.ai.name}
   }
 
   // 调用 window.Ai00Api.oai_chat_completions 函数，传入参数：
   // body 参数数据结构是 /ai00sdk/ai00Type.ts 中定义 的 ai00Type.OaiChatCompletionsType
+  console.log("111")
   window.Ai00Api.oai_chat_completions(body, async (res: string) => {
   chatStore.changeLatestMessage(res)
+
   })
 
   
@@ -152,70 +139,11 @@ const sendChatMessage = async (content: string = userMessage.value) => {
   }
 };
 
-
-/*
-const readStream = async (
-  reader: ReadableStreamDefaultReader<Uint8Array>,
-  status: number
-) => {
-  let partialLine = "";
-  let contentss = ""
-  let contentscache = ""
-  let temp = 0
-  while (true) {
-    // eslint-disable-next-line no-await-in-loop
-    const { value, done } = await reader.read();
-    if (done) break;
-
-    const decodedText = decoder.decode(value, { stream: true });
-
-    if (status !== 200) {
-      const json = JSON.parse(decodedText); // start with "data: "
-      const content = json.error.message ?? decodedText;
-      chatStore.changeLatestMessage(content);
-      return;
-    }
-    //console.log(decodedText)
-    const chunk = partialLine + decodedText;
-    const newLines = chunk.split(/\r?\n/);
-
-    partialLine = newLines.pop() ?? "";
-    //console.log(newLines)
-    for (const line of newLines) {
-      if (line.length === 0) continue; // ignore empty message
-      if (line.startsWith(":")) continue; // ignore sse comment message
-      if (line === "data: [DONE]") return; //
-      if (line === "data:[DONE]") return; //
-
-      const json = JSON.parse(line.substring(5)); // start with "data: "
-      const content =
-        status === 200
-          ? json.choices[0].delta.content ?? ""
-          : json.error.message;
-      //console.log(content)
-
-      if (((content == "User")) && (temp == 0)) {
-        temp = 1
-      }
-
-
-      if ((temp == 1) && (content == ":")) {
-        return
-      } else if (temp == 1) {
-        temp = 0
-      }
-
-      contentscache += content
-      if (temp == 0) {
-        contentss = contentscache
-        chatStore.changeLatestMessage(contentss)
-      }
-
-    }
-
-  }
-}
-*/
+let res:string[] =["","",""] 
+res.forEach((item,index)=>{
+  res[index] = " "
+})
+ 
 
 </script>
 

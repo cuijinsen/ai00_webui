@@ -12,7 +12,7 @@ const chatStore = useChatStore();
 <template>
   <transition-group name="list">
     <Message
-      v-for="message in chatStore.chatHistory"
+      v-for="message in chatStore.chatHistory.history"
       :key="message.id"
       :message="message"
       class="my-12 d-flex "

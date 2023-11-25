@@ -73,7 +73,7 @@ module Ai00Api {
                 status === 200
                   ? json.choices[0].delta.content ?? ""
                   : json.error.message;
-                console.log(content)
+              // console.log(content)
 
               if ((content == "User" || content == "Question" ||  content == "Q" ) && temp == 0) {
                 temp = 1;

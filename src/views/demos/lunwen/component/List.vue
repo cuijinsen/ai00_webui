@@ -16,7 +16,7 @@ const lunwenStore = useLunwenStore();
 </script>
 
 <template>
-  <v-card height="100%" prepend-icon="mdi-file-document-edit">
+  <v-card height="100%" prepend-icon="mdi-file-document-edit"  >
     <template v-slot:title>
       论文内容
     </template>

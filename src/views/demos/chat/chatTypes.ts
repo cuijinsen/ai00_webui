@@ -14,9 +14,9 @@ export interface Message {
 
 export interface clist {
   id_name: string;
-  title: string;
-  tou: string;
-  history:[];
+  history:Message[];
+  ai:User;
+  me:User;
 }
 
 export interface ChatMessage {

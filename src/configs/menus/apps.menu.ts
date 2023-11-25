@@ -17,4 +17,10 @@ export default [
     text: "Lunwen",
     link: "/demos/lunwen",
   },
+  {
+    icon: "mdi-forum-outline",
+    key: "menu.wifu",
+    text: "Wifu",
+    link: "/demos/wifu",
+  },
 ];

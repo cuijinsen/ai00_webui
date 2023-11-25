@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import Loading01 from '~/src/components/loading/Loading01.vue';
-
 const quant = ref(0);
-const quantint = ref(0);
+const quantint = ref("None");
 const quanttemp = ref(0);
 
 const token_chunk_size = ref(32);
@@ -58,8 +56,8 @@ watch(adapterNmae, (newAdapterNmae: string) => {
 });
 
 //quantint的值变化时，将quant的值变为对应的值
-watch(quantint, (newQuantint: number) => {
-  if (newQuantint == 0) {
+watch(quantint, (newQuantint: string) => {
+  if (newQuantint == "None") {
     quant.value = 0;
   } else {
     quant.value = quanttemp.value;
@@ -67,8 +65,10 @@ watch(quantint, (newQuantint: number) => {
 });
 
 watch(quant, (newQuant: number) => {
-  if (quantint.value != 0) {
+  if (quantint.value != "None") {
     quanttemp.value = newQuant;
+  }else{
+    quanttemp.value = 0;
   }
 });
 
@@ -86,7 +86,9 @@ function run_model() {
   const model_load_params = {
     model_path: model_path.value,
     adapter: adapterpost,
+    quant_type: quantint.value,
     quant: Number(quant.value),
+    turbo: true,
     token_chunk_size: Number(token_chunk_size.value),
     max_runtime_batch: Number(max_runtime_batch.value),
     max_batch: Number(max_batch.value),
@@ -132,13 +134,12 @@ function run_model() {
               >
                 <template v-slot:text>
                   <v-radio-group v-model="quantint" inline>
-                    <v-radio label="FP16" :value="0" color="primary"></v-radio>
-                    <v-radio label="INT8" :value="1" color="primary"></v-radio>
+                    <v-radio label="FP16" value="None" color="primary"></v-radio>
+                    <v-radio label="INT8" value="Int8" color="primary"></v-radio>
                     <v-radio
                       label="NF4"
-                      :value="2"
+                      value="NF4"
                       color="primary"
-                      disabled
                     ></v-radio>
                   </v-radio-group>
                   <v-slider
@@ -148,7 +149,7 @@ function run_model() {
                     :max="31"
                     :step="1"
                     thumb-label="always"
-                    :disabled="quantint == 0"
+                    :disabled="quantint == 'None'"
                   ></v-slider>
                 </template>
               </v-card>

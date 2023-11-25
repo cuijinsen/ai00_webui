@@ -5,7 +5,6 @@
 -->
 <script setup lang="ts">
 import TodoMenu from "./component/Menu.vue";
-import Tigang from "./component/Tigang.vue";
 </script>
 
 <template>
@@ -13,13 +12,13 @@ import Tigang from "./component/Tigang.vue";
     <!-- ---------------------------------------------- -->
     <!-- Side Bar -->
     <!-- ---------------------------------------------- -->
-    <div class="d-none d-md-block sidebar">
+    <div class="d-none d-md-block sidebar" color="primary">
       <TodoMenu />
     </div>
     <!-- ---------------------------------------------- -->
     <!--  List Todo -->
     <!-- ---------------------------------------------- -->
-    <div class="main">
+    <div class="main" >
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
@@ -43,7 +42,7 @@ import Tigang from "./component/Tigang.vue";
     flex-direction: column;
     width: 300px;
     height: 100%;
-    background-color: #fff;
+ 
     margin-right: 20px;
   }
 
@@ -51,7 +50,7 @@ import Tigang from "./component/Tigang.vue";
     flex: 1;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+ 
   }
 }
 </style>

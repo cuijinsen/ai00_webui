@@ -9,16 +9,7 @@ import { useChatStore } from "./chatStore";
 
 const chatStore = useChatStore();
 
-if(window.location.host == "localhost:4399"){
-  chatStore.setserverip("127.0.0.1:65530");
-}else{
-  chatStore.setserverip(window.location.host)
-}
-//chatStore.setserverip("127.0.0.1:65530");
 
-const issettings = ref(true);
-
-issettings.value = chatStore.getSettings();
 
 
   const model = ref("")
@@ -27,26 +18,7 @@ issettings.value = chatStore.getSettings();
     model.value = res.data[0].id
     chatStore.Model = model.value
   })
-/*
-  async function getModles() {
-    
-  const result = await fetch('http://127.0.0.1:65530/api/oai/models', {
-      method: 'get',
-      // signal: AbortSignal.timeout(8000),
-      // 开启后到达设定时间会中断流式输出
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer 1`,
-      },
 
-    })
-
-    const modelss = await result.json();
-    model.value = modelss.data[0].id
-    chatStore.Model = model.value
-  }
-
-  getModles()*/
  
 </script>
 
@@ -73,9 +45,9 @@ issettings.value = chatStore.getSettings();
       </router-view>
     </v-card>
     <v-card
-      :class="chatStore.settings ? 'rr ' : 'rr d-none d-md-block sidebar'"
+      :class="chatStore.showSetting ? 'rr ' : 'rr d-none d-md-block sidebar'"
       prepend-icon="mdi-cog"
-      v-if="chatStore.settings"
+      v-if="chatStore.showSetting"
     >
       <template v-slot:title>
         {{ $t("chat.settings") }}

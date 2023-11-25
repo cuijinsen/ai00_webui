@@ -65,6 +65,7 @@ export interface OaiChatCompletionsType {
   presence_penalty: number;
   frequency_penalty: number;
   penalty_decay: number;
+  names: any[];
 }
 
 export interface OaiEmbeddingsType {
