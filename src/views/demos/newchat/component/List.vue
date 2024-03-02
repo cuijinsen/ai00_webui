@@ -38,8 +38,12 @@ const toolbar = ref([
 
 const sendPrompt = async () => {
  
-const prompt = text.value.replace(/\n\n/g, "\n")
-const body: ai00Type.OaiCompletionsType = {
+const prompt = text.value
+const temp :string = text.value
+if(todoStore.SamplerType == 'Nucleus'){
+ 
+
+  const body: ai00Type.OaiCompletionsType = {
     prompt: [prompt],
     max_tokens: todoStore.Max_Tokens,
     temperature: todoStore.Temperature,
@@ -50,14 +54,31 @@ const body: ai00Type.OaiCompletionsType = {
     stop: ["\n\n","\nQ:","\nUser:","\nQuestion:","\n\nQ:","\n\nUser:","\n\nQuestion:","Q:","User:","Question:"],
     stream: true,
   }
- const temp :string = text.value
-
-  // 调用 window.Ai00Api.oai_chat_completions 函数，传入参数：
-  // body 参数数据结构是 /ai00sdk/ai00Type.ts 中定义 的 ai00Type.OaiChatCompletionsType
   window.Ai00Api.oai_completions(body, async (res: string) => {
     text.value = temp + res
     
   })
+}else if(todoStore.SamplerType == 'Mirostat'){
+  const body: ai00Type.OaiCompletionsType = {
+    prompt: [prompt],
+    max_tokens: todoStore.Max_Tokens,
+    tau: todoStore.tau,
+    rate: todoStore.tau,
+    stop: ["\n\n","\nQ:","\nUser:","\nQuestion:","\n\nQ:","\n\nUser:","\n\nQuestion:","Q:","User:","Question:"],
+    stream: true,
+  }
+  window.Ai00Api.oai_completions(body, async (res: string) => {
+    text.value = temp + res
+    
+  })
+
+}
+
+ 
+
+  // 调用 window.Ai00Api.oai_chat_completions 函数，传入参数：
+  // body 参数数据结构是 /ai00sdk/ai00Type.ts 中定义 的 ai00Type.OaiChatCompletionsType
+
 };
 
 

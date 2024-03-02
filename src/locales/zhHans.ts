@@ -51,18 +51,45 @@ export default {
     write: "续写",
   },
   dashboard: {
-
+    about: "🎈关于 AI00 Server",
+    title1: "😋容易使用",
+    text1: "Ai00 server 支持 Vulkan/Dx12/openGL 作为推理后端，支持 INT8/NF4 量化，所以可以在绝大部分的个人电脑上快速的运行！支持大部分NVIDIA、AMD、Inter的显卡，包括集成显卡。7B的模型NF4量化时仅占用5.5G显存。",
+    title2: "🎁免费开源",
+    text2: "Ai00 server 使用 MIT/Apache2.0 协议，免费开源商用。您可以把Ai00 server集成在您的系统或软件中。社区保持活跃开发中！",
+    title3: "✨能力出众",
+    text3: "兼容chatGPT的API接口，使用强大的RWKV模型。RWKV是将会吊打所有基于Transformer的模型的，在端侧LLM部署的王者模型。并且正在快速迭代中，功能和性能越来越强悍。"
+  },
+  settings:{
+    title1: "参数设置",
+    subtitle1: "选择模型",
+    subtitle2: "选择后端",
+    button1: "保存设置",
+    button2: "启动模型",
   },
   chat: {
     newchat: "新建聊天",
     settings: "参数设置",
     chating: "愉快地聊天吧",
     hello: "你好，我是你的AI助手。有什么问题或指令请尽管吩咐！",
+    tips: "默认User和Assistant的对话，AI将获得最好的智力",
+    youname: "你的称呼",
+    ainame: "AI的称呼",
+    text: "AI的自我介绍",
+    close: "关闭",
+    ok: "确定",
 
   },
   write: {
      settings: "参数设置",
      write: "续写",
+     title: "论文标题",
+     step1: "生成提纲",
+     step2: "生成论文",
+     contens: "论文内容",
+     prompt1: "根据题目，完成一篇高度凝练且全面的论文提纲,论文的题目是：",
+     prompt2: "论文提纲标准格式：I.引言。II. 正文。III. 结论。正文又细分为若干具体的小节，用罗马数字分段。",
+     prompt3: "根据论文主题对下列段落进行详细的撰写，完成一篇高度凝练且全面的论文，论文的题目是：",
+     prompt4: "段落标题",
  
 
   },

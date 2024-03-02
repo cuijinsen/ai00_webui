@@ -179,8 +179,8 @@ const toDataURI = (string: string) => {
 
     <template v-slot:default="{ isActive }">
       <v-card
-        title="创建对话"
-        subtitle="默认User和Assistant的对话，AI将获得最好的智力"
+        :title="t('chat.newchat')"
+        :subtitle="t('chat.tips')"
         prepend-icon="mdi-account"
       >
         <v-card-text
@@ -188,7 +188,7 @@ const toDataURI = (string: string) => {
           <v-row>
             <v-col cols="10">
               <v-text-field
-                label="您的称呼"
+                :label="t('chat.youname')"
                 variant="outlined"
                 v-model="myname"
               ></v-text-field>
@@ -203,7 +203,7 @@ const toDataURI = (string: string) => {
             </v-col>
             <v-col cols="10">
               <v-text-field
-                label="AI的称呼"
+                :label="t('chat.ainame')"
                 variant="outlined"
                 v-model="ainame"
               ></v-text-field>
@@ -213,7 +213,7 @@ const toDataURI = (string: string) => {
             v-model="aimeg"
             rows="3"
             row-height="12"
-            label="AI的初始设定"
+            :label="t('chat.text')"
             no-resize
             max-rows="3"
             variant="outlined"
@@ -226,9 +226,9 @@ const toDataURI = (string: string) => {
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text="关闭" @click="isActive.value = false"></v-btn>
+          <v-btn :text="t('chat.close')" @click="isActive.value = false"></v-btn>
           <v-btn
-            text="确定"
+            :text="t('chat.ok')"
             @click="
               newchat();
               isActive.value = false;

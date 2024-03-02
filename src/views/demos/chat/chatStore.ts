@@ -48,6 +48,9 @@ export const useChatStore = defineStore({
     Presence: 0.3,
     Frequency: 0.3,
     Penalty: 400,
+    tau:3.0,
+    rate:0.1,
+    SamplerType: "Nucleus",
 
     Model: "",
   }),

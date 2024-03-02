@@ -38,26 +38,52 @@ export default {
     home: "Home",
     settings: "Settings",
     chat: "Chat",
-    lunwen: "LunWen",
+    lunwen: "Paper",
     todo: "Todos",
     write: "Write",
 
   },
 
   dashboard: {
-
+    about: "🎈About Ai00 Server",
+    title1: "😋Easy to use",
+    text1: "The Ai00 server supports various backends, including Vulkan/Dx12/openGL, which allows it to run on most personal computers with NVidia/AMD/Intel GPUs. Additionally, it supports INT8/NF4 quantization, which can result in smaller in-memory size and faster inference speed. The NF4-quantized 7B model only requires 5.5GB of VRAM, making it a highly efficient solution for running AI models on low-end hardware.",
+    title2: "🎁Free and open source",
+    text2: "Ai00 server uses MIT/Apache2.0 license, free and open source for commercial use. You can integrate Ai00 server into your system or software. The community is actively developing!",
+    title3: "✨Outstanding ability",
+    text3: "Compatible with the API interface of chatGPT, using the powerful RWKV model. RWKV will hang all Transformer-based models, and the king model deployed on the end-side LLM. And it is iterating quickly, and the functions and performance are getting stronger and stronger.",
+  },
+  settings:{
+    title1: "Settings",
+    subtitle1: "Choose Model",
+    subtitle2: "Choose Backend",
+    button1: "Save",
+    button2: "Run Model",
   },
   chat: {
     newchat: "New Chat",
     settings: "Settings",
     chating: "Let's Chat!",
     hello: "Hello, I am your AI assistant. If you have any questions or instructions, please let me know!",
+    tips: "Use User and Assistant, AI will gain the best intelligence",
+    youname: "Your Name",
+    ainame: "AI Name",
+    text: "AI Introduction",
+    close: "Close",
+    ok: "OK",
 
   },
   write: {
     settings: "Settings",
     write: "Write",
-
+    title: "Paper Title",
+    step1: "Generate Outline",
+    step2: "Generate Paper",
+    contens: "Contents",
+    prompt1: "According to the title, make a highly condensed and comprehensive outline of the paper. The title of the paper is:",
+    prompt2: "the format for paper outline: I. Introduction. II Main text. III. Conclusion. The main text is further divided into several specific sections, segmented using Roman numerals.",
+    prompt3: "Write detailed paragraphs based on the topic of the paper:",
+    prompt4: "Paragraph title:",
 
  },
 

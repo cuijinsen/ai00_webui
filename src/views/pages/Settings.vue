@@ -6,13 +6,14 @@ const quanttemp = ref(0);
 const token_chunk_size = ref(32);
 const max_runtime_batch = ref(8);
 const max_batch = ref(16);
-const embed_layer = ref(2);
 const modelName = ref("");
 const model_path = ref("");
 const adapterlist = ref([]);
+const embed_device_list = ref(["Cpu", "Gpu"]);
 const selectItems = ref<string[]>([]);
 const adapterNmae = ref("");
 const adapter = ref(0);
+const embed_device = ref("Cpu");
 
 interface modelslist {
   name: string;
@@ -92,8 +93,8 @@ function run_model() {
     token_chunk_size: Number(token_chunk_size.value),
     max_runtime_batch: Number(max_runtime_batch.value),
     max_batch: Number(max_batch.value),
-    embed_layer: Number(embed_layer.value),
     tokenizer_path: "assets/tokenizer/rwkv_vocab_v20230424.json",
+    embed_device: embed_device.value,
   };
   //2. 调用model_load
   window.Ai00Api.models_load(model_load_params, (res: any) => {
@@ -101,6 +102,11 @@ function run_model() {
     loading.value = false;
   });
 }
+
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+
 </script>
 <template>
   <div class="pa-5">
@@ -109,20 +115,20 @@ function run_model() {
     <!-- ---------------------------------------------- -->
     <v-row class="flex-0" dense>
       <v-col cols="12" md="6" xl="6" xxl="6">
-        <v-card class="cardl" title="模型参数" prepend-icon="mdi-file-cabinet">
+        <v-card class="cardl" :title='t("dashboard.title1")' prepend-icon="mdi-file-cabinet">
           <template v-slot:text>
             <perfect-scrollbar ref="target" id="card1-area" class="card1-area">
               <v-select
                 v-model="modelName"
                 color="primary"
-                label="模型选择"
+                :label='t("settings.subtitle1")'
                 :items="selectItems"
                 variant="outlined"
               ></v-select>
               <v-select
                 v-model="adapterNmae"
                 color="primary"
-                label="显卡选择"
+                :label='t("settings.subtitle2")'
                 :items="adapterlist"
                 variant="outlined"
               ></v-select>
@@ -203,23 +209,25 @@ function run_model() {
               <v-card
                 class="setcard"
                 variant="outlined"
-                title="embed_layer"
-                subtitle="The (reversed) number of layer at which the output is as embedding."
+                title="embed_device"
+                subtitle="The embedding device."
               >
-                <template v-slot:text>
-                  <v-text-field
-                    label=""
-                    variant="outlined"
-                    type="number"
-                    v-model="embed_layer"
-                    color="primary"
-                  ></v-text-field>
-                </template>
+              <template v-slot:text>
+              <v-select
+                v-model="embed_device"
+                color="primary"
+                :label='t("settings.subtitle2")'
+                :items="embed_device_list"
+                variant="outlined"
+              ></v-select>
+            </template>
               </v-card>
+
+
             </perfect-scrollbar>
           </template>
           <template v-slot:title>
-            参数设置
+           {{ $t("settings.title1") }}
             <v-spacer></v-spacer>
             <v-btn
               color="primary"
@@ -228,7 +236,7 @@ function run_model() {
               @click="save_config"
               style="margin-right: 10px"
             >
-              保存配置
+            {{ $t("settings.button1") }}
             </v-btn>
 
             <v-btn
@@ -237,7 +245,7 @@ function run_model() {
               variant="outlined"
               @click="run_model"
             >
-              启动模型
+            {{ $t("settings.button2") }}
             </v-btn>
             <v-dialog v-model="loading" :scrim="true" persistent width="auto">
               <v-card color="primary">

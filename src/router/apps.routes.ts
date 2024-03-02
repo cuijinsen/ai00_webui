@@ -54,6 +54,7 @@ export default [
       import("@/views/demos/lunwen/App.vue"),
     children: [...lunwenRoutes],
   },
+  /*
   {
     path: "/demos/wifu",
     meta: {
@@ -65,5 +66,5 @@ export default [
     component: () =>
       import("@/views/demos/wifu/App.vue"),
     children: [...wifuRoutes],
-  },
+  },*/
 ]; 

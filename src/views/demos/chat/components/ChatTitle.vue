@@ -1,13 +1,10 @@
 <script setup lang="ts">
-  const props = defineProps({
-    // Message to display
-    message: {
-      type: Object,
-      default: () => ({}),
-    },
-  });
+
   import { useChatStore } from '../chatStore'
+  import { useAi00Store } from "@/ai00sdk/ai00Store";
+
   const ChatStore = useChatStore()
+  const ai00Store = useAi00Store();
 
 </script>
 
@@ -15,24 +12,48 @@
   <v-card class="mx-auto bg-primary titles" width="100%"   :title="ChatStore.chatHistory.ai.name"  >
     <template #subtitle>
       <v-row no-gutters>
-          <v-col cols="12" sm="3">
+          <v-col cols="5" >
             AI00 chat mode
           </v-col>
-          <v-col cols="12" sm="9">
-              <p>Model: {{ ChatStore.Model }}</p>
+          <v-col cols="5">
+
 
           </v-col>
 
         </v-row>
+        <v-row no-gutters>
+          <v-col cols="12" >
+            <p> {{ ChatStore.Model }} (Q-{{ ai00Store.quant_type == "None"? "FP16" : ai00Store.quant_type }} {{ ai00Store.quant == 0 ?'':'; L-'+ai00Store.quant }} )</p>
+          </v-col>
+ 
+
+        </v-row>
+ 
     </template>
 
     <v-avatar :image="ChatStore.chatHistory.ai.avatar" class="aitou" size="100"></v-avatar>
   </v-card>
   <v-avatar :image="ChatStore.chatHistory.me.avatar" class="mytou"  size="100"  ></v-avatar>
+  <div class="options" v-if="ChatStore.SamplerType == 'Mirostat'">
+    Sampler: {{ ChatStore.SamplerType }} <br/>
+    Tau: {{ ChatStore.tau }}; LR: {{ ChatStore.rate }}<br/>
+      
+  </div>
+  <div class="options" v-if="ChatStore.SamplerType == 'Nucleus'">
+    Sampler: {{ ChatStore.SamplerType }} <br/>
+    Top_p: {{ ChatStore.TOP_P }}; Temp: {{ ChatStore.Temperature }}; PP: {{ ChatStore.Presence }}; FP: {{ ChatStore.Frequency }}; HL: {{ ChatStore.Penalty }} <br/>
+      
+  </div>
   <div class="myname"> {{  ChatStore.chatHistory.me.name }}</div>
 </template>
 
 <style scoped lang="scss">
+.options{
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(var(--v-theme-primary));
+}
 .titles{
   padding-bottom: 60px;
   clip-path: polygon(
@@ -52,7 +73,7 @@
 }
 .mytou{
   position:absolute;
-  top: 35px;
+  top: 50px;
   right: 20px;
   background-color: #f8f8f8;
   z-index: 10;
@@ -82,6 +103,7 @@
 .myname{
   position: absolute;
   right: 10px;
+  top: 160px;
   font-size: 20px;
   font-weight: bold;
   text-align: center;

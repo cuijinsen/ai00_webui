@@ -114,12 +114,14 @@ export const useAi00Store = defineStore({
   state: () => ({
     apis: apis,
     server: "http://127.0.0.1:65530",
+    quant_type: "None",
+    quant: 0,
 
   }),
 
   persist: {
     enabled: true,
-    strategies: [{ storage: localStorage, paths: [] }],
+    strategies: [{ storage: localStorage, paths: ['quant_type','quant'] }],
   },
 
   getters: {

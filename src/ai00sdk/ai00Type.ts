@@ -29,6 +29,7 @@ export interface ModelsLoadType {
  model_path: string;
  /// Specify layers that needs to be quantized.
  quant: number;
+ quant_type: string;
  /// Maximum tokens to be processed in parallel at once.
  token_chunk_size: number;
  /// The chunk size for each split of the head matrix.
@@ -36,7 +37,7 @@ export interface ModelsLoadType {
  /// Number of states that are cached on GPU.
  max_batch: number;
  /// the (reversed) number of layer at which the output is as embedding.
- embed_layer: number;
+ embed_device: string;
  /// Path to the tokenizer.
  tokenizer_path: string;
  /// Adapter selection.
@@ -48,11 +49,13 @@ export interface OaiCompletionsType {
   max_tokens: number;
   stop: any[];
   stream: boolean;
-  temperature: number;
-  top_p: number;
-  presence_penalty: number;
-  frequency_penalty: number;
-  penalty_decay: number;
+  temperature?: number;
+  top_p?: number;
+  presence_penalty?: number;
+  frequency_penalty?: number;
+  penalty_decay?: number;
+  tau?: number;
+  rate?: number;
 }
 
 export interface OaiChatCompletionsType {
@@ -60,13 +63,21 @@ export interface OaiChatCompletionsType {
   max_tokens: number;
   stop: any[];
   stream: boolean;
-  temperature: number;
-  top_p: number;
-  presence_penalty: number;
-  frequency_penalty: number;
-  penalty_decay: number;
-  names: any[];
+  temperature?: number;
+  top_p?: number;
+  presence_penalty?: number;
+  frequency_penalty?: number;
+  penalty_decay?: number;
+  tau?: number;
+  rate?: number;
+  names: chatHistoryNameType;
 }
+
+export interface chatHistoryNameType {
+  user: string;
+  assistant: string;
+}
+
 
 export interface OaiEmbeddingsType {
   input: string;

@@ -100,12 +100,32 @@ module Ai00Api {
         };
         await readStream(reader, status);
       } else {
-        const responseBody = await response.json();
-        if (onmessage) {
-          onmessage(responseBody);
+        console.log(status);
+        console.log(body);
+        if (status === 200) {
+          
+          if (onmessage) {
+            try {
+              const responseBody = await response.json();
+              onmessage(responseBody);
+              return responseBody;
+            } catch (error) {
+              onmessage(response.statusText);
+              return response.statusText;
+            }
+
+
+          }
+        } else {
+          if (onmessage) {
+            onmessage("something wrong");
+          }
+          return "something wrong";
         }
 
-        return responseBody;
+
+
+        
       }
     } else if (method == "GET") {
       const response = await fetch(ai00Store.server + apiurl, {
@@ -292,6 +312,8 @@ module Ai00Api {
       const method = foundApi.method;
 
       await send_api(apiurl, method, body, (date: any) => {
+        ai00Store.quant = body.quant;
+        ai00Store.quant_type = body.quant_type;
         if (run) {
           run(date);
         }

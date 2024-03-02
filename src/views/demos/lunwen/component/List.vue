@@ -18,7 +18,7 @@ const lunwenStore = useLunwenStore();
 <template>
   <v-card height="100%" prepend-icon="mdi-file-document-edit"  >
     <template v-slot:title>
-      论文内容
+      {{ $t("write.contens") }}
     </template>
     <template v-slot:text>
       <v-card-text>

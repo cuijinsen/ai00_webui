@@ -217,7 +217,7 @@ function addHitAreaFrames(model) {
 
   model.addChild(hitAreaFrames);
 
-   hitAreaFrames.visible = true
+   hitAreaFrames.visible = false
 
    console.log(hitAreaFrames)
    hitAreaFrames.children.forEach(element => {
