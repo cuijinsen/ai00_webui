@@ -41,7 +41,6 @@ export const useChatStore = defineStore({
     nowchat: "",
     isChatting: false,
     showSetting: true,
-
     Max_Tokens: 1000,
     TOP_P: 0.5,
     Temperature: 1,
@@ -111,7 +110,7 @@ export const useChatStore = defineStore({
     removeOtherMessage(timestamp: number) {
       const history = this.chatHistory.history;
       for (let i = history.length - 1; i >= 0; i--) {
-        if (history[i].timestamp >= timestamp) {
+        if (history[i].timestamp > timestamp) {
           history.splice(i, 1);
         } else {
           // 由于历史记录是按时间排序的，
@@ -126,7 +125,7 @@ export const useChatStore = defineStore({
     changeLatestMessage(msg: string) {
       let newmsg = this.chatHistory.history[this.chatHistory.history.length - 1];
 
-      this.chatHistory[this.chatHistory.history.length];
+      // this.chatHistory[this.chatHistory.history.length];
       //console.log(newmsg);
       newmsg["text"] = msg;
       this.chatHistory.history.splice([this.chatHistory.history.length - 1], 1, newmsg);
