@@ -74,9 +74,7 @@ const sendMessage = () => {
   console.log(chatStore.getLatestMessage().text);
   sendChatMessage(chatStore.getLatestMessage().text);
 };
-const cancelSend=()=>{
-  window.Ai00Api.cancelSend();
-}
+
 const sendChatMessage = async (content: string) => {
   try {
     chatStore.setChatting(true);
@@ -266,14 +264,6 @@ const sendChatMessage = async (content: string) => {
         >
           {{ date }}
         </span>
-        <v-btn
-          density="compact"
-          color="primary"
-          size="small"
-          v-bind="props"
-          @click="cancelSend"
-        >pause
-        </v-btn>
       </v-card-actions>
 
     </v-card>

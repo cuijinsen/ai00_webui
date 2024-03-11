@@ -164,7 +164,7 @@ module Ai00Api {
     }
   }
   export function cancelSend() {
-      controller.abort();
+    controller.abort();
     useChatStore().changeLatestMessage(eventData);
     useChatStore().setChatting(false);
   }
